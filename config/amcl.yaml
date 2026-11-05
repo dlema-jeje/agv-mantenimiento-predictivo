@@ -1,0 +1,61 @@
+amcl:
+  ros__parameters:
+    use_sim_time: true
+
+    # Frames de nuestro AGV
+    global_frame_id: map
+    odom_frame_id: odom
+    base_frame_id: base_footprint
+    scan_topic: /scan
+
+    # Publicar map -> odom
+    tf_broadcast: true
+    transform_tolerance: 1.0
+
+    # Modelo de movimiento diferencial
+    robot_model_type: "nav2_amcl::DifferentialMotionModel"
+    alpha1: 0.2
+    alpha2: 0.2
+    alpha3: 0.2
+    alpha4: 0.2
+    alpha5: 0.2
+
+    # Filtro de partículas
+    min_particles: 500
+    max_particles: 2000
+    pf_err: 0.05
+    pf_z: 0.99
+    resample_interval: 1
+
+    # Actualización con odometría
+    update_min_d: 0.05
+    update_min_a: 0.05
+
+    # Modelo del sensor láser
+    laser_model_type: "likelihood_field"
+    max_beams: 60
+    laser_min_range: -1.0
+    laser_max_range: 3.5
+    laser_likelihood_max_dist: 2.0
+
+    z_hit: 0.5
+    z_short: 0.05
+    z_max: 0.05
+    z_rand: 0.5
+    sigma_hit: 0.2
+    lambda_short: 0.1
+
+    # Recuperación y convergencia
+    recovery_alpha_fast: 0.0
+    recovery_alpha_slow: 0.0
+    save_pose_rate: 0.5
+
+    # Posición inicial en Gazebo
+    set_initial_pose: true
+    initial_pose:
+      x: -1.70
+      y: 0.0
+      z: 0.0
+      yaw: 0.0
+
+    always_reset_initial_pose: false

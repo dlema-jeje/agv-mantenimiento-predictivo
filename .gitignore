@@ -1,0 +1,30 @@
+# Archivos temporales de Python
+__pycache__/
+*.pyc
+.venv/
+
+# Archivos temporales de MATLAB
+*.asv
+*.autosave
+*.m~
+
+# Compilaciones ROS 2
+build/
+install/
+log/
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+*~
+*.swp
+
+# Archivos grandes de registro
+*.bag
+*.db3
+*.mcap
+
+# Credenciales
+.env
+.env.*
+!.env.example

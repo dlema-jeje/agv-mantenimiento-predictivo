@@ -1,0 +1,6 @@
+orden,desde,estacion,prioridad,regla,distancia_m
+1,Base,E5,1,R1: falla,3.32989898732233
+2,E5,E4,3,R4: por defecto,0.7
+3,E4,E3,3,R4: por defecto,0.7
+4,E3,E1,3,R4: por defecto,1.35
+5,E1,E2,4,R3: normal baja criticidad,0.7

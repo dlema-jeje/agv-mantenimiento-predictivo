@@ -1,0 +1,6 @@
+orden,desde,estacion,prioridad,regla,distancia_m
+1,Base,E3,2,R2: preventivo alta criticidad,2.75
+2,E3,E2,2,R2: preventivo alta criticidad,0.65
+3,E2,E1,2,R2: preventivo alta criticidad,0.7
+4,E1,E4,4,R3: normal baja criticidad,2.05
+5,E4,E5,4,R3: normal baja criticidad,0.7

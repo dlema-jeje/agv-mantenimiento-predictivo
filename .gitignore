@@ -28,3 +28,15 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# Respaldos temporales
+*.bak
+*.bak_*
+*.Zone.Identifier
+
+# Archivos temporales de Python
+__pycache__/
+*.pyc
+
+# Archivos temporales del editor
+*~

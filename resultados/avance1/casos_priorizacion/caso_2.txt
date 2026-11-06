@@ -1,0 +1,9 @@
+ORDEN: Base -> E3 -> E2 -> E1 -> E4 -> E5
+1. Base -> E3 | P=2 | 2.750 m | R2: preventivo alta criticidad
+2. E3 -> E2 | P=2 | 0.650 m | R2: preventivo alta criticidad
+3. E2 -> E1 | P=2 | 0.700 m | R2: preventivo alta criticidad
+4. E1 -> E4 | P=4 | 2.050 m | R3: normal baja criticidad
+5. E4 -> E5 | P=4 | 0.700 m | R3: normal baja criticidad
+Distancia total sin regreso: 6.850 m
+VALIDACIÓN DEL CASO: COINCIDE CON INFORME
+Guardado: /home/diego/agv_predictivo/datos/orden_priorizado.csv

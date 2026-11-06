@@ -40,3 +40,9 @@ __pycache__/
 
 # Archivos temporales del editor
 *~
+
+# Datos experimentales CWRU
+datos/cwru/*.mat
+
+# Copias de seguridad
+*.bak

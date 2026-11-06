@@ -41,8 +41,67 @@ industriales de bombeo.
 - Treinta rutas exportadas y verificadas.
 - Mapa cargado mediante el servidor de mapas de Nav2.
 - Localización AMCL pendiente.
-- Navegación autónoma pendiente de validación.
+- Navegación autónoma validada en una misión de cinco estaciones mediante Nav2.
 
 ## Autor
 
 Proyecto académico de simulación de un AGV industrial.
+
+## Resultados del Avance 1
+
+### Planificación y navegación
+
+- Mapa industrial de cinco estaciones.
+- Planificación de rutas mediante Dijkstra.
+- Tres escenarios de priorización comprobados.
+- Misión de cinco estaciones completada con resultado SUCCEEDED.
+- Evidencia: `resultados/avance1/navegacion/inspecciones.csv`.
+
+El retorno automático a la base no quedó validado.
+
+### Ejecutar la priorización
+
+Desde la raíz del proyecto:
+
+    python3 scripts/priorizador_agv.py --caso 1
+    python3 scripts/priorizador_agv.py --caso 2
+    python3 scripts/priorizador_agv.py --caso 3
+
+Para validar la misión sin mover el robot:
+
+    python3 scripts/priorizador_agv.py --caso 1
+    python3 scripts/ejecutar_mision_priorizada.py
+
+Para ejecutar la navegación, primero deben estar activos
+Gazebo, Nav2, AMCL y el servidor de mapas:
+
+    python3 scripts/ejecutar_mision_priorizada.py --ejecutar
+
+### Análisis de vibraciones CWRU
+
+Se analizaron cuatro condiciones:
+
+- Normal: 97.mat
+- Pista interna: 105.mat
+- Bola: 118.mat
+- Pista externa: 130.mat
+
+Se calcularon FFT, RMS, pico, factor de cresta y curtosis.
+La señal normal se remuestreó de 48 kHz a 12 kHz.
+
+Scripts: `matlab/cwru/`
+
+Resultados: `resultados/avance1/vibraciones/`
+
+Los datos experimentales `.mat` se mantienen localmente.
+Pueden obtenerse del CWRU Bearing Data Center.
+
+Los scripts MATLAB contienen rutas del entorno Windows/WSL
+utilizado en el desarrollo, que deben adaptarse en otros equipos.
+
+### Limitaciones
+
+- La navegación fue validada en simulación Gazebo.
+- El retorno automático a la base queda pendiente.
+- Los registros CWRU no fueron medidos físicamente por el AGV.
+- No se ha implementado todavía un clasificador automático de fallas.

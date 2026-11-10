@@ -103,3 +103,27 @@ La validación de acoplamiento en Gazebo y la integración
 final del mantenimiento predictivo siguen pendientes.
 
 **Estado técnico: prototipo parcialmente validado.**
+
+
+## Validación de integración de seguridad
+
+Se ejecutó una prueba local de integración de seguridad utilizando
+estados Nav2 y condiciones de parada simulados, sin iniciar nodos ROS2
+ni solicitar movimiento del AGV.
+
+- Escenarios evaluados: 8.
+- Escenarios aprobados: 8.
+- Escenarios fallidos: 0.
+- Evidencia: `experimentos/pruebas_seguridad_mision.csv`.
+- Casos cubiertos: finalización Nav2 con parada, cancelación confirmada
+  y no confirmada, navegación abortada, robot en movimiento, odometría
+  obsoleta, STOP no confirmado y estado desconocido.
+
+**Alcance:** estos resultados validan decisiones de software bajo
+entradas simuladas. No demuestran seguridad física, funcionamiento
+integrado en Gazebo ni acoplamiento real.
+
+**Pendiente:** ejecutar y documentar los 20 ensayos Gazebo previstos.
+La distancia de 0.25 m sigue siendo una hipótesis numérica y no un
+objetivo operativo autorizado. Se conserva el umbral STOP LiDAR de
+0.30 m y permanecen activos los bloqueos de movimiento.

@@ -1,0 +1,131 @@
+AVANCE 2 - VERIFICACION DE ARBITRAJE
+2026-11-09T16:27:40-05:00
+
+=== ESTADO DEL ARBITRO ===
+data: MAMDANI
+---
+
+=== PUBLICADORES /cmd_vel ===
+Type: geometry_msgs/msg/Twist
+
+Publisher count: 2
+
+Node name: arbitro_velocidades_agv
+Node namespace: /
+Topic type: geometry_msgs/msg/Twist
+Endpoint type: PUBLISHER
+GID: 01.0f.c2.7e.36.62.e7.fb.00.00.00.00.00.00.11.03.00.00.00.00.00.00.00.00
+QoS profile:
+  Reliability: RELIABLE
+  History (Depth): UNKNOWN
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+Node name: arbitro_velocidades_agv
+Node namespace: /
+Topic type: geometry_msgs/msg/Twist
+Endpoint type: PUBLISHER
+GID: 01.0f.c2.7e.49.66.c0.ea.00.00.00.00.00.00.11.03.00.00.00.00.00.00.00.00
+QoS profile:
+  Reliability: RELIABLE
+  History (Depth): UNKNOWN
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+Subscription count: 1
+
+Node name: turtlebot3_diff_drive
+Node namespace: /
+Topic type: geometry_msgs/msg/Twist
+Endpoint type: SUBSCRIPTION
+GID: 01.0f.c2.7e.37.31.b7.be.00.00.00.00.00.00.70.04.00.00.00.00.00.00.00.00
+QoS profile:
+  Reliability: RELIABLE
+  History (Depth): UNKNOWN
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+
+=== PUBLICADORES VELOCITY_SMOOTHER ===
+/velocity_smoother
+  Subscribers:
+    /bond: bond/msg/Status
+    /clock: rosgraph_msgs/msg/Clock
+    /cmd_vel_nav: geometry_msgs/msg/Twist
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+  Publishers:
+    /bond: bond/msg/Status
+    /cmd_vel_nav_smooth: geometry_msgs/msg/Twist
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+    /rosout: rcl_interfaces/msg/Log
+    /velocity_smoother/transition_event: lifecycle_msgs/msg/TransitionEvent
+  Service Servers:
+    /velocity_smoother/change_state: lifecycle_msgs/srv/ChangeState
+    /velocity_smoother/describe_parameters: rcl_interfaces/srv/DescribeParameters
+    /velocity_smoother/get_available_states: lifecycle_msgs/srv/GetAvailableStates
+    /velocity_smoother/get_available_transitions: lifecycle_msgs/srv/GetAvailableTransitions
+    /velocity_smoother/get_parameter_types: rcl_interfaces/srv/GetParameterTypes
+    /velocity_smoother/get_parameters: rcl_interfaces/srv/GetParameters
+    /velocity_smoother/get_state: lifecycle_msgs/srv/GetState
+    /velocity_smoother/get_transition_graph: lifecycle_msgs/srv/GetAvailableTransitions
+    /velocity_smoother/list_parameters: rcl_interfaces/srv/ListParameters
+    /velocity_smoother/set_parameters: rcl_interfaces/srv/SetParameters
+    /velocity_smoother/set_parameters_atomically: rcl_interfaces/srv/SetParametersAtomically
+  Service Clients:
+
+  Action Servers:
+
+  Action Clients:
+
+
+=== PUBLICADORES BEHAVIOR_SERVER ===
+/behavior_server
+  Subscribers:
+    /bond: bond/msg/Status
+    /clock: rosgraph_msgs/msg/Clock
+    /cmd_vel_teleop: geometry_msgs/msg/Twist
+    /local_costmap/costmap_raw: nav2_msgs/msg/Costmap
+    /local_costmap/published_footprint: geometry_msgs/msg/PolygonStamped
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+    /preempt_teleop: std_msgs/msg/Empty
+  Publishers:
+    /behavior_server/transition_event: lifecycle_msgs/msg/TransitionEvent
+    /bond: bond/msg/Status
+    /cmd_vel_behavior: geometry_msgs/msg/Twist
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+    /rosout: rcl_interfaces/msg/Log
+  Service Servers:
+    /behavior_server/change_state: lifecycle_msgs/srv/ChangeState
+    /behavior_server/describe_parameters: rcl_interfaces/srv/DescribeParameters
+    /behavior_server/get_available_states: lifecycle_msgs/srv/GetAvailableStates
+    /behavior_server/get_available_transitions: lifecycle_msgs/srv/GetAvailableTransitions
+    /behavior_server/get_parameter_types: rcl_interfaces/srv/GetParameterTypes
+    /behavior_server/get_parameters: rcl_interfaces/srv/GetParameters
+    /behavior_server/get_state: lifecycle_msgs/srv/GetState
+    /behavior_server/get_transition_graph: lifecycle_msgs/srv/GetAvailableTransitions
+    /behavior_server/list_parameters: rcl_interfaces/srv/ListParameters
+    /behavior_server/set_parameters: rcl_interfaces/srv/SetParameters
+    /behavior_server/set_parameters_atomically: rcl_interfaces/srv/SetParametersAtomically
+  Service Clients:
+
+  Action Servers:
+    /assisted_teleop: nav2_msgs/action/AssistedTeleop
+    /backup: nav2_msgs/action/BackUp
+    /drive_on_heading: nav2_msgs/action/DriveOnHeading
+    /spin: nav2_msgs/action/Spin
+    /wait: nav2_msgs/action/Wait
+  Action Clients:
+
+
+=== SUPERVISOR DE AUTORIZACION ===
+data: NO_AUTORIZADO | NAV2_NO_CONFIRMADO, PREACOPLAMIENTO_NO_CONFIRMADO
+---

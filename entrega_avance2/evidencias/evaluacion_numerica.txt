@@ -1,0 +1,30 @@
+centrado                rep=1 exito=0 estado=DIVERGENCIA_ANGULAR yaw=+45.24
+centrado                rep=2 exito=0 estado=DIVERGENCIA_ANGULAR yaw=+46.50
+centrado                rep=3 exito=0 estado=DIVERGENCIA_ANGULAR yaw=+46.15
+centrado                rep=4 exito=0 estado=DIVERGENCIA_ANGULAR yaw=+45.04
+centrado                rep=5 exito=0 estado=DIVERGENCIA_ANGULAR yaw=+46.41
+yaw_15_grados           rep=1 exito=0 estado=DIVERGENCIA_ANGULAR yaw=+45.00
+yaw_15_grados           rep=2 exito=0 estado=DIVERGENCIA_ANGULAR yaw=+46.71
+yaw_15_grados           rep=3 exito=0 estado=DIVERGENCIA_ANGULAR yaw=+46.65
+yaw_15_grados           rep=4 exito=0 estado=DIVERGENCIA_ANGULAR yaw=+46.58
+yaw_15_grados           rep=5 exito=0 estado=DIVERGENCIA_ANGULAR yaw=+46.51
+lateral_3cm_yaw_10      rep=1 exito=0 estado=DIVERGENCIA_ANGULAR yaw=+45.41
+lateral_3cm_yaw_10      rep=2 exito=0 estado=DIVERGENCIA_ANGULAR yaw=+45.38
+lateral_3cm_yaw_10      rep=3 exito=0 estado=DIVERGENCIA_ANGULAR yaw=+45.33
+lateral_3cm_yaw_10      rep=4 exito=0 estado=DIVERGENCIA_ANGULAR yaw=+45.27
+lateral_3cm_yaw_10      rep=5 exito=0 estado=DIVERGENCIA_ANGULAR yaw=+45.20
+perturbacion_lateral    rep=1 exito=0 estado=DIVERGENCIA_ANGULAR yaw=+45.24
+perturbacion_lateral    rep=2 exito=0 estado=DIVERGENCIA_ANGULAR yaw=+46.50
+perturbacion_lateral    rep=3 exito=0 estado=DIVERGENCIA_ANGULAR yaw=+46.15
+perturbacion_lateral    rep=4 exito=0 estado=DIVERGENCIA_ANGULAR yaw=+45.04
+perturbacion_lateral    rep=5 exito=0 estado=DIVERGENCIA_ANGULAR yaw=+46.41
+
+===== RESUMEN DE EVALUACION =====
+TIPO: MODELO_NUMERICO_NO_GAZEBO
+ESCENARIOS: 4
+REPETICIONES: 20
+EXITOS_NUMERICOS: 0
+FALLOS_NUMERICOS: 20
+ENSAYOS_FISICOS_GAZEBO: 0
+RESULTADOS: /home/diego/agv_predictivo/entrega_avance2/experimentos/resultados_20_ensayos_numericos.csv
+MOVIMIENTO_SOLICITADO: NO

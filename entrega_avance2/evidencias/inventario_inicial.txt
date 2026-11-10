@@ -1,0 +1,50 @@
+
+===== CONTROL DIFUSO =====
+OK: scripts/difuso/controlador_agv.py
+OK: scripts/difuso/supervisor_geometrico.py
+OK: scripts/difuso/nodo_acoplamiento_ros2.py
+OK: scripts/integracion/cliente_nav2_supervisado.py
+
+===== ARCHIVOS MATLAB / FIS =====
+matlab/difuso/acople_agv.fis
+matlab/crear_mapa_industrial.m
+matlab/exportar_mapa_nav2.m
+matlab/validar_rutas_agv.m
+matlab/calcular_rutas_agv.m
+matlab/difuso/validar_controlador_acople.m
+matlab/difuso/disenar_controlador_acople.m
+matlab/cwru/analizar_vibraciones_cwru.m
+matlab/cwru/analisis_fft_cwru.m
+matlab/cwru/comparacion_final_cwru.m
+matlab/cwru/remuestrear_normal_cwru.m
+TOTAL_MATLAB_FIS: 11
+
+===== DATASET DE VIBRACION =====
+datos/cwru/105.mat (2.78 MB)
+datos/cwru/97.mat (3.72 MB)
+datos/cwru/118.mat (2.81 MB)
+datos/cwru/130.mat (2.79 MB)
+datos/cwru/97_12k.mat (0.45 MB)
+ARCHIVOS_DE_DATOS: 5
+
+===== LIBRERIAS =====
+numpy OK
+scipy OK
+skfuzzy OK
+sklearn NO_INSTALADO
+tensorflow NO_INSTALADO
+matplotlib OK
+pandas OK
+
+===== MATLAB / OCTAVE =====
+matlab NO_EN_PATH
+octave NO_EN_PATH
+
+===== EVIDENCIAS EXISTENTES =====
+OK: datos/registros/integracion/pruebas_seguridad_mision.csv
+OK: datos/registros/integracion/pruebas_acciones_ros2.csv
+FALTA: datos/registros/integracion/resultados_nav2.csv
+OK: datos/registros/acoplamientos.csv
+
+DIRECTORIO_ENTREGA: /home/diego/agv_predictivo/entrega_avance2
+MOVIMIENTO_SOLICITADO: NO

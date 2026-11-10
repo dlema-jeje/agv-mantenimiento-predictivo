@@ -1,0 +1,30 @@
+centrado                rep=1 exito=1 estado=ACOPLE_NUMERICO yaw=-0.00
+centrado                rep=2 exito=1 estado=ACOPLE_NUMERICO yaw=-0.00
+centrado                rep=3 exito=1 estado=ACOPLE_NUMERICO yaw=-0.00
+centrado                rep=4 exito=1 estado=ACOPLE_NUMERICO yaw=-0.00
+centrado                rep=5 exito=1 estado=ACOPLE_NUMERICO yaw=-0.00
+yaw_15_grados           rep=1 exito=1 estado=ACOPLE_NUMERICO yaw=-0.00
+yaw_15_grados           rep=2 exito=1 estado=ACOPLE_NUMERICO yaw=-0.00
+yaw_15_grados           rep=3 exito=1 estado=ACOPLE_NUMERICO yaw=-0.00
+yaw_15_grados           rep=4 exito=1 estado=ACOPLE_NUMERICO yaw=-0.00
+yaw_15_grados           rep=5 exito=1 estado=ACOPLE_NUMERICO yaw=-0.00
+lateral_3cm_yaw_10      rep=1 exito=0 estado=TIEMPO_AGOTADO yaw=+0.00
+lateral_3cm_yaw_10      rep=2 exito=0 estado=TIEMPO_AGOTADO yaw=+0.00
+lateral_3cm_yaw_10      rep=3 exito=0 estado=TIEMPO_AGOTADO yaw=+0.00
+lateral_3cm_yaw_10      rep=4 exito=0 estado=TIEMPO_AGOTADO yaw=+0.00
+lateral_3cm_yaw_10      rep=5 exito=0 estado=TIEMPO_AGOTADO yaw=+0.00
+perturbacion_lateral    rep=1 exito=1 estado=ACOPLE_NUMERICO yaw=-0.00
+perturbacion_lateral    rep=2 exito=1 estado=ACOPLE_NUMERICO yaw=-0.00
+perturbacion_lateral    rep=3 exito=1 estado=ACOPLE_NUMERICO yaw=-0.00
+perturbacion_lateral    rep=4 exito=1 estado=ACOPLE_NUMERICO yaw=-0.00
+perturbacion_lateral    rep=5 exito=1 estado=ACOPLE_NUMERICO yaw=-0.00
+
+===== RESUMEN DE EVALUACION =====
+TIPO: MODELO_NUMERICO_NO_GAZEBO
+ESCENARIOS: 4
+REPETICIONES: 20
+EXITOS_NUMERICOS: 15
+FALLOS_NUMERICOS: 5
+ENSAYOS_FISICOS_GAZEBO: 0
+RESULTADOS: /home/diego/agv_predictivo/entrega_avance2/experimentos/resultados_20_ensayos_redisenio_numerico.csv
+MOVIMIENTO_SOLICITADO: NO

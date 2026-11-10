@@ -1,0 +1,4 @@
+fecha,caso,estado_obtenido,estado_esperado,cancelacion_aceptada,aprobada,servidor,movimiento_solicitado
+2026-11-09T16:47:30.283115,EXITO_ROS2,4,4,False,True,/agv_pruebas/navigate_to_pose,False
+2026-11-09T16:47:30.546914,CANCELACION_ROS2,5,5,True,True,/agv_pruebas/navigate_to_pose,False
+2026-11-09T16:47:31.588496,ABORTO_ROS2,6,6,False,True,/agv_pruebas/navigate_to_pose,False

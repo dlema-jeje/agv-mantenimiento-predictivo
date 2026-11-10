@@ -46,3 +46,5 @@ datos/cwru/*.mat
 
 # Copias de seguridad
 *.bak
+.venv-avance2/
+*:Zone.Identifier

@@ -1,0 +1,37 @@
+97_12k.mat: X097_DE_time_12k, 60985 muestras
+  entrenamiento: 40 ventanas
+  validacion: 7 ventanas
+  prueba: 7 ventanas
+105.mat: X105_DE_time, 121265 muestras
+  entrenamiento: 81 ventanas
+  validacion: 16 ventanas
+  prueba: 16 ventanas
+118.mat: X118_DE_time, 122571 muestras
+  entrenamiento: 82 ventanas
+  validacion: 16 ventanas
+  prueba: 16 ventanas
+130.mat: X130_DE_time, 121991 muestras
+  entrenamiento: 82 ventanas
+  validacion: 16 ventanas
+  prueba: 16 ventanas
+
+===== RESULTADOS DEL ADELANTO =====
+VENTANAS_TRAIN: 285
+VENTANAS_VALIDACION: 55
+VENTANAS_PRUEBA: 55
+ACCURACY_VALIDACION: 0.8909
+ACCURACY_PRUEBA: 1.0000
+ITERACIONES: 150
+CSV_GENERADO: SI
+MODELO_GUARDADO: SI
+
+               precision    recall  f1-score   support
+
+         Bola       1.00      1.00      1.00        16
+       Normal       1.00      1.00      1.00         7
+Pista_externa       1.00      1.00      1.00        16
+Pista_interna       1.00      1.00      1.00        16
+
+     accuracy                           1.00        55
+    macro avg       1.00      1.00      1.00        55
+ weighted avg       1.00      1.00      1.00        55

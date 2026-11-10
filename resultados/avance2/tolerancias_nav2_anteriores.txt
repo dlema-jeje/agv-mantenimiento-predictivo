@@ -1,0 +1,2 @@
+general_goal_checker.xy_goal_tolerance=0.25
+general_goal_checker.yaw_goal_tolerance=0.25

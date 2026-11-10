@@ -1,0 +1,6 @@
+estacion,criticidad,dias,diagnostico
+E1,Media,3,Normal
+E2,Alta,2,Falla
+E3,Baja,8,Normal
+E4,Alta,6,Normal
+E5,Baja,1,Normal

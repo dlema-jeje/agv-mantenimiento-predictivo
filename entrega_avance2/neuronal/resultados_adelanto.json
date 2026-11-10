@@ -1,0 +1,19 @@
+{
+  "dataset": "CWRU",
+  "clases": [
+    "Normal",
+    "Pista_interna",
+    "Bola",
+    "Pista_externa"
+  ],
+  "ventana": 2048,
+  "solapamiento": 0.5,
+  "division_temporal": "70/15/15",
+  "ventanas_entrenamiento": 285,
+  "ventanas_validacion": 55,
+  "ventanas_prueba": 55,
+  "accuracy_validacion": 0.8909090909090909,
+  "accuracy_prueba": 1.0,
+  "iteraciones": 150,
+  "nota": "Entrenamiento inicial con scikit-learn. No equivale todav\u00eda al modelo TensorFlow/Keras requerido para la integraci\u00f3n final."
+}

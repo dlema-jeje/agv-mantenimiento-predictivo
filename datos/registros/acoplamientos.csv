@@ -1,0 +1,2 @@
+fecha_hora,modo,objetivo_x,objetivo_y,objetivo_yaw_deg,resultado,ultimo_motivo,duracion_s,error_longitudinal_m,error_lateral_m,error_angular_deg
+2026-11-09T14:58:24-05:00,DIAGNOSTICO,1.05,-1.4,0.0,TIEMPO MAXIMO ALCANZADO,SIN_EVALUAR,3.211,,,

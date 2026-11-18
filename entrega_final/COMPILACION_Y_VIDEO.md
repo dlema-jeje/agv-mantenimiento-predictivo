@@ -106,7 +106,11 @@ del Avance 2 queda fuera del mínimo de los escenarios 1 a 3 solicitado aquí.
 El modo de video solicita 4500 actualizaciones físicas por segundo real
 con el paso de 1 ms. Desactiva la cámara del Waffle para reducir el render.
 La ruta conserva las 3 rondas, el acople difuso, las 15 mediciones y los
-diagnósticos CWRU. La velocidad efectiva depende del equipo y la carga gráfica.
+diagnósticos CWRU. El controlador sincroniza los dos rangos por sello de escaneo y exige vigencia
+también en segundos de simulación. Si el rumbo supera cinco grados mientras
+los rangos están disponibles, gira en el sitio sin avanzar. Los valores de
+distancia y ángulo de acople siguen saliendo del par de rangos.
+La velocidad efectiva depende del equipo y la carga gráfica.
 El comando time muestra el tiempo de pared. Con video:=false se usa el
 ritmo nominal. Si la captura supera la duración de entrega, exportarla
 con el paso 3C después de validar las tres rondas.

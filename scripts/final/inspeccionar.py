@@ -34,7 +34,7 @@ class Inspector(Node):
         self.registro = registro
         self.control = crear_simulacion()
         self.odom = None
-        self.rangos = {}
+        self.limpiar_rangos()
         self.respuesta = None
         self.evento = None
         self.vel = self.create_publisher(Twist, "/cmd_vel", 10)
@@ -56,15 +56,27 @@ class Inspector(Node):
         tiempo_sim = sello.sec + sello.nanosec * 1e-9
         self.odom = p.x, p.y, yaw, time.monotonic(), tiempo_sim
 
+    def limpiar_rangos(self):
+        self.rangos = {}
+        self.par_rangos = None
+
     def recibir_rango(self, msg, lado):
-        valor = msg.range
-        anterior = self.rangos.get(lado)
-        if not msg.min_range < valor < msg.max_range:
-            self.rangos.pop(lado, None)
+        sello = msg.header.stamp
+        t = sello.sec + sello.nanosec * 1e-9
+        valor = msg.range if msg.min_range < msg.range < msg.max_range else None
+        self.rangos[lado] = t, valor
+        otro = self.rangos.get("fd" if lado == "fi" else "fi")
+        if otro is None or otro[0] != t:
             return
-        if anterior and time.monotonic() - anterior[1] < 0.35:
-            valor = 0.3 * valor + 0.7 * anterior[0]
-        self.rangos[lado] = valor, time.monotonic()
+        fi, fd = self.rangos["fi"][1], self.rangos["fd"][1]
+        if fi is None or fd is None:
+            self.par_rangos = None
+            return
+        anterior = self.par_rangos
+        if anterior and 0 < t - anterior[0] <= 0.75:
+            fi = 0.3 * fi + 0.7 * anterior[1]
+            fd = 0.3 * fd + 0.7 * anterior[2]
+        self.par_rangos = t, fi, fd, time.monotonic()
 
     def recibir_diagnostico(self, msg):
         try:
@@ -145,9 +157,9 @@ class Inspector(Node):
                 secuencia.inicio_tolerancia = None
                 continue
             realineando = False
-            fi = self.rangos.get("fi")
-            fd = self.rangos.get("fd")
-            validos = fi is not None and fd is not None and ahora - min(fi[1], fd[1]) < 0.35
+            par = self.par_rangos
+            validos = (par is not None and ahora - par[3] < 0.35
+                       and -0.25 <= self.odom[4] - par[0] <= 0.75)
             if not validos:
                 secuencia.inicio_tolerancia = None
                 if perdida_desde is None:
@@ -167,8 +179,14 @@ class Inspector(Node):
                     return None, "RANGOS_INVALIDOS"
                 continue
             perdida_desde = None
-            ed = (fi[0] + fd[0])/2 - 0.10
-            et = math.atan((fi[0] - fd[0])/0.20)
+            _, fi, fd, _ = par
+            ed = (fi + fd) / 2 - 0.10
+            et = math.atan((fi - fd) / 0.20)
+            # El supervisor conserva la placa dentro del campo de los dos rangos.
+            if abs(yaw) > math.radians(5):
+                self.mover(w=max(-0.25, min(0.25, -1.6 * yaw)))
+                secuencia.inicio_tolerancia = None
+                continue
             estado = secuencia.actualizar(error_distancia=ed, error_angular=et,
                                          sensores_validos=validos, seguridad_confirmada=True,
                                          ahora=self.odom[4])
@@ -189,7 +207,8 @@ class Inspector(Node):
             self.control.input["ed"] = ed
             self.control.input["et"] = math.degrees(et)
             self.control.compute()
-            self.mover(self.control.output["v"], self.control.output["w"])
+            giro = 0.55 * self.control.output["w"] - 0.9 * yaw
+            self.mover(self.control.output["v"], max(-0.25, min(0.25, giro)))
         self.mover()
         if secuencia.estado == "ACOPLE_DIFUSO":
             secuencia.solicitar_recuperacion("TIEMPO_AGOTADO")

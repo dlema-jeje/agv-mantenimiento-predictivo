@@ -21,7 +21,7 @@ def ensayar(nodo):
         y, yaw = eje_y + lateral, math.radians(grados)
         for repeticion in range(1, 6):
             nodo.mover()
-            nodo.rangos.clear()
+            nodo.limpiar_rangos()
             subprocess.run(["gz", "model", "-m", "agv_waffle", "-x", str(x), "-y", str(y),
                             "-z", "0.05", "-R", "0", "-P", "0", "-Y", str(yaw)],
                            check=True, timeout=10)

@@ -50,3 +50,18 @@
   porque la corrida se interrumpió en E4 tras 7 visitas.
 - La duración con GUI en WSL depende del equipo. El exportador de la guía
   conserva las rondas de la grabación y ajusta el borrador a unos 170 s.
+
+## Corrección de pérdida de referencia en E4
+
+- Los rangos izquierdo y derecho se filtran por pares del mismo escaneo.
+  La comprobación de vigencia usa tiempo de simulación y de pared.
+- La odometría limita el giro durante el acople. Cuando el rumbo supera
+  5° y hay un par vigente, el robot corrige sin avanzar. La confirmación
+  mantiene los errores de distancia y de ángulo calculados con los rangos.
+- Modo de video verificado sin GUI en 102,145 s. Tres rondas completas,
+  15 visitas, cero reintentos y secuencia de primeros destinos E3 → E2 → E5.
+  E4 se acopló al primer intento en las tres rondas. Los errores máximos de
+  la misión fueron 8,26 mm en distancia y 4,24° en ángulo por rangos.
+  Registro en gazebo_video_rangos_pareados.jsonl.
+- Los ensayos independientes obtuvieron 15/15, cinco por escenario.
+  Registro en acople_rangos_pareados.jsonl.

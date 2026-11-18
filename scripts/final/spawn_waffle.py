@@ -11,6 +11,7 @@ from rclpy.node import Node
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--modelo", type=Path, required=True)
+    parser.add_argument("--video", choices=("true", "false"), default="false", type=str.lower)
     args, ros_args = parser.parse_known_args()
     arbol = ElementTree.parse(args.modelo)
     aceleracion = arbol.find(
@@ -20,6 +21,11 @@ def main():
         raise RuntimeError("El modelo Waffle no contiene el parámetro de rampa esperado.")
     # Evita la acumulación de consigna de rueda observada al alternar giro y avance.
     aceleracion.text = "0"
+    if args.video == "true":
+        # La misión usa LiDAR y odometría. Omitir la cámara evita su render.
+        for enlace in arbol.findall(".//link"):
+            for sensor in enlace.findall("sensor[@type='camera']"):
+                enlace.remove(sensor)
 
     rclpy.init(args=ros_args)
     nodo = Node("spawn_waffle_avance3")

@@ -70,7 +70,9 @@ En una terminal nueva para no mezclar los entornos de entrenamiento y ROS:
       python3-colcon-common-extensions ffmpeg x11-utils texlive-publishers latexmk
     python3 -m venv --system-site-packages .venv-final
     source .venv-final/bin/activate
-    python -m pip install 'numpy<2' scipy scikit-fuzzy
+    export PYTHONNOUSERSITE=1
+    python -m pip install --ignore-installed \
+      numpy==1.26.4 scipy==1.13.1 networkx==3.4.2 scikit-fuzzy==0.5.0
     export ROS_DOMAIN_ID=45 ROS_LOCALHOST_ONLY=1
     colcon build --base-paths ros2_ws/src --packages-select agv_avance3
     source install/setup.bash
@@ -97,9 +99,17 @@ del Avance 2 queda fuera del mínimo de los escenarios 1 a 3 solicitado aquí.
     mkdir -p resultados/reproduccion
     RONDA="resultados/reproduccion/rondas_$(date +%Y%m%d_%H%M%S).jsonl"
     printf '%s\n' "$RONDA" > resultados/reproduccion/ultima_mision.txt
-    ros2 launch agv_avance3 avance3.launch.py \
-      gui:=true registro:="$RONDA" 2>&1 | tee "$RONDA.log"
+    time ros2 launch agv_avance3 avance3.launch.py \
+      gui:=true video:=true registro:="$RONDA" 2>&1 | tee "$RONDA.log"
     python scripts/final/validar_gazebo.py "$RONDA"
+
+El modo de video solicita 4500 actualizaciones físicas por segundo real
+con el paso de 1 ms. Desactiva la cámara del Waffle para reducir el render.
+La ruta conserva las 3 rondas, el acople difuso, las 15 mediciones y los
+diagnósticos CWRU. La velocidad efectiva depende del equipo y la carga gráfica.
+El comando time muestra el tiempo de pared. Con video:=false se usa el
+ritmo nominal. Si la captura supera la duración de entrega, exportarla
+con el paso 3C después de validar las tres rondas.
 
 En otra terminal, preparar los monitores antes de iniciar la misión:
 

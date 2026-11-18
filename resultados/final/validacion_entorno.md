@@ -36,3 +36,17 @@
 - Misión repetida tras la revisión del controlador, desde el paquete
   compilado con colcon. Tres rondas, 15 visitas confirmadas, 3 reintentos
   y orden inicial E3 → E2 → E5. Registro gazebo_rondas_revision.jsonl.
+
+## Modo de grabación acelerado
+
+- Gazebo Classic 11.10.2 con video:=true y gui:=false. Paso físico de
+  1 ms y objetivo de 4500 actualizaciones por segundo, sin cámara del Waffle.
+  Se observó un factor de tiempo real de aproximadamente 4,35.
+- Tiempo de pared del lanzamiento completo: 204,974 s. El validador
+  confirmó 3 rondas, 15 visitas, 4 reintentos y el orden inicial E3 → E2 → E5.
+  Errores máximos de 6,84 mm en distancia y 4,67° en ángulo.
+  Evidencia en gazebo_video_4500.jsonl.
+- El objetivo exploratorio de 6000 actualizaciones por segundo se descartó
+  porque la corrida se interrumpió en E4 tras 7 visitas.
+- La duración con GUI en WSL depende del equipo. El exportador de la guía
+  conserva las rondas de la grabación y ajusta el borrador a unos 170 s.

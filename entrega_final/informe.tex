@@ -142,7 +142,7 @@ Precisión es VP/(VP+FP) y recall es VP/(VP+FN). El reporte conserva ambos indic
 El archivo Keras conserva la red entrenada. ROS~2 carga las matrices de pesos y los parámetros del escalador desde NPZ y ejecuta las capas densas, ReLU y Softmax con NumPy. La comparación de las 220 probabilidades de las 55 ventanas con Keras arrojó una diferencia absoluta máxima de $1{,}19\times10^{-7}$. Las clases predichas coincidieron en todos los casos.
 
 \subsection{Contraste de características}
-Se seleccionaron cinco ventanas del conjunto de prueba con representación de las cuatro clases. Se contrastaron los 45 valores de salida con una referencia NumPy/SciPy que implementa la curtosis de Pearson y la desviación con $N-1$. El máximo error relativo fue $1{,}22\times10^{-13}$\,\%. El script MATLAB lee las mismas cinco ventanas, usa momentos poblacionales equivalentes a \texttt{kurtosis(x,1)} y \texttt{skewness(x,1)}, calcula \texttt{std(x,0)} y exporta los 45 errores relativos \cite{matlab}. La verificación directa en MATLAB queda pendiente.
+Se seleccionaron cinco ventanas del conjunto de prueba con representación de las cuatro clases. Se contrastaron los 45 valores de salida con una referencia NumPy/SciPy que implementa la curtosis de Pearson y la desviación con $N-1$. El máximo error relativo fue $1{,}22\times10^{-13}$\,\%. El script MATLAB lee las mismas cinco ventanas, usa momentos poblacionales equivalentes a \texttt{kurtosis(x,1)} y \texttt{skewness(x,1)}, calcula \texttt{std(x,0)} y exporta los 45 errores relativos \cite{matlab}. MATLAB en Windows aprobó los 45 valores. El máximo error relativo fue $6{,}08\times 10^{-13}$\,\%, menor que el umbral de 0,1\,\%.
 
 
 \subsection{Reproducir las cinco ventanas}
@@ -239,7 +239,7 @@ python scripts/final/validar_ensayos.py acople.jsonl
 \midrule Clasificación & 55 ventanas temporales.\\
 Keras--NumPy & 220 probabilidades contrastadas.\\
 NumPy--SciPy & 45 características contrastadas.\\
-MATLAB--Python & Script y tablas de entrada preparados.\\
+MATLAB--Python & 45 de 45 valores por debajo de 0,1\,\%.\\
 Replay ROS~2 & 15 diagnósticos y tres planes iniciales.\\
 Gazebo & 15 acoples y diagnósticos en tres rondas.\\
 \bottomrule
@@ -258,7 +258,7 @@ El manifiesto con SHA-256 identifica el origen de los datos. El CSV conserva tra
 \section{Conclusiones}
 La MLP con estructura 9--32--16--4 obtuvo menor pérdida de validación que la de una capa. Con 916 parámetros, logró 55 aciertos de 55 ventanas de prueba del conjunto CWRU a 0 hp. No se observaron confusiones en las cuatro clases. Los resultados proceden de tramos temporales disjuntos de los mismos registros y deben verificarse con nuevos motores y cargas.
 
-El flujo ROS~2 procesó las quince visitas de replay. Tras confirmar pista interna en E2 y falla de bola en E5, el primer destino pasó de E3 a E2 y luego a E5. Esta prueba respalda la actualización de prioridades con la clase recibida por tópicos. Gazebo confirmó la misma evolución del orden inicial y registró las quince visitas. Se preparó el script para ejecutar el contraste directo en MATLAB.
+El flujo ROS~2 procesó las quince visitas de replay. Tras confirmar pista interna en E2 y falla de bola en E5, el primer destino pasó de E3 a E2 y luego a E5. Esta prueba respalda la actualización de prioridades con la clase recibida por tópicos. Gazebo confirmó la misma evolución del orden inicial y registró las quince visitas. El contraste directo en MATLAB aprobó los 45 valores.
 
 El modelo exportado conserva escalas y orden de entrada. La comparación de las probabilidades con el modelo de entrenamiento muestra que se puede desplegar el clasificador fuera del entorno TensorFlow sin alterar las decisiones observadas. El siguiente paso del proyecto estudiará el muestreo propio, la medida 1× y la latencia integral en ESP32.
 

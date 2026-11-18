@@ -2,6 +2,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath,graphicx,booktabs,array,url,listings}
+\usepackage[hidelinks]{hyperref}
 \graphicspath{{../resultados/final/}{../resultados/avance1/vibraciones/}{../resultados/avance2/diseno/}{../datos/}{../matlab/}}
 \renewcommand{\abstractname}{Resumen}
 \renewcommand{\refname}{Referencias}
@@ -142,7 +143,7 @@ Precisión es VP/(VP+FP) y recall es VP/(VP+FN). El reporte conserva ambos indic
 El archivo Keras conserva la red entrenada. ROS~2 carga las matrices de pesos y los parámetros del escalador desde NPZ y ejecuta las capas densas, ReLU y Softmax con NumPy. La comparación de las 220 probabilidades de las 55 ventanas con Keras arrojó una diferencia absoluta máxima de $1{,}19\times10^{-7}$. Las clases predichas coincidieron en todos los casos.
 
 \subsection{Contraste de características}
-Se seleccionaron cinco ventanas del conjunto de prueba con representación de las cuatro clases. Se contrastaron los 45 valores de salida con una referencia NumPy/SciPy que implementa la curtosis de Pearson y la desviación con $N-1$. El máximo error relativo fue $1{,}22\times10^{-13}$\,\%. El script MATLAB lee las mismas cinco ventanas, usa momentos poblacionales equivalentes a \texttt{kurtosis(x,1)} y \texttt{skewness(x,1)}, calcula \texttt{std(x,0)} y exporta los 45 errores relativos \cite{matlab}. MATLAB en Windows aprobó los 45 valores. El máximo error relativo fue $6{,}08\times 10^{-13}$\,\%, menor que el umbral de 0,1\,\%.
+Se seleccionaron cinco ventanas del conjunto de prueba con representación de las cuatro clases. Se contrastaron los 45 valores de salida con una referencia NumPy/SciPy que implementa la curtosis de Pearson y la desviación con $N-1$. El máximo error relativo fue $1{,}22\times10^{-13}$\,\%. El script MATLAB lee las mismas cinco ventanas, usa momentos poblacionales equivalentes a \texttt{kurtosis(x,1)} y \texttt{skewness(x,1)}, calcula \texttt{std(x,0)} y exporta los 45 errores relativos \cite{matlab}. MATLAB en Windows aprobó los 45 valores. El máximo error relativo fue $6{,}08\times 10^{-13}$\,\%, menor que el umbral de 0,1\,\%. Al releer el CSV, el auditor de Python obtuvo $5{,}90\times 10^{-13}$\,\%.
 
 
 \subsection{Reproducir las cinco ventanas}
@@ -268,7 +269,7 @@ bash entrega_final/exportar_video.sh \
   gazebo_bruto.mkv Video_Final.mp4
 (cd entrega_final && latexmk -pdf informe.tex)
 \end{lstlisting}
-La guía \texttt{COMPILACION\_Y\_VIDEO.md} contiene la instalación, los tópicos de inspección, el comando de captura X11 y la alternativa para Wayland o WSL. La edición final se limita a 180 s.
+El guion de defensa está en \texttt{entrega\_final/DEFENSA.md}. En WSL se abre con \texttt{less entrega\_final/DEFENSA.md} desde la raíz del repositorio. En GitHub, abrir \href{https://github.com/dlema-jeje/agv-mantenimiento-predictivo/blob/avance3-final/entrega_final/DEFENSA.md}{DEFENSA.md en avance3-final}. La guía \texttt{COMPILACION\_Y\_VIDEO.md} contiene la instalación, los tópicos de inspección, el comando de captura X11 y la alternativa para Wayland o WSL. La edición final se limita a 180 s.
 \newpage
 \begin{thebibliography}{00}
 \bibitem{randall} R. B. Randall y J. Antoni, “Rolling element bearing diagnostics---A tutorial,” \emph{Mechanical Systems and Signal Processing}, vol. 25, n.º 2, pp. 485--520, 2011. doi: 10.1016/j.ymssp.2010.07.017.

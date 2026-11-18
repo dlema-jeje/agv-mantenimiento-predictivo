@@ -1,5 +1,5 @@
 # MEC451 | Avance 3 — MLP de diagnóstico e integración
-\n[Guía por fases, compilación y video](COMPILACION_Y_VIDEO.md).
+\n[Guía por fases, compilación y video](COMPILACION_Y_VIDEO.md) · [Guion de defensa y rutas de evidencia](DEFENSA.md).
 
 Continuación de la rama `avance2-desarrollo` en el commit `d0fc301`.
 Se conservan el mundo de cinco máquinas, los objetivos del tablero, la matriz

@@ -11,9 +11,9 @@
 | 3 | Exactitud, matriz 4 × 4, precisión y recall | Auditor recalcula predicciones a partir de las 55 ventanas originales de prueba | 100 %. Diagonal 7,16,16,16. Precisión y recall 1,00 para cada clase. Sin cruces en la prueba. |
 | 3 | Acelerómetro simulado, diagnóstico y prioridad | Tópicos y replay de ROS 2 asociados por ID | 15/15 mensajes y cambios de primer destino E3 → E2 → E5. |
 | 3 | Contraste MATLAB–Python, cinco ventanas | CSV fijados, script MATLAB y chequeo del CSV de salida desde Python | MATLAB pendiente por disponibilidad del motor. La referencia SciPy dio diferencia máxima de 1,22 × 10⁻¹³ %. |
-| 3 | Tres rondas con estado cambiante | Corrida repetida en Gazebo con el código revisado, comprobada con validar_gazebo.py | 15 visitas y 3 reintentos. E2 pasa a encabezar la ronda 2 y E5 la ronda 3. |
+| 3 | Tres rondas con estado cambiante | Corrida repetida en Gazebo con el código revisado, comprobada con validar_gazebo.py | 15 visitas, 0 reintentos y 134,994 s en WSL con interfaz. E2 pasa a encabezar la ronda 2 y E5 la ronda 3. |
 | 3 | Acople ≥ 90 % en escenarios 1 a 3 | 15 intentos independientes en Gazebo. Un intento por fila. | 15/15, con 5/5 por escenario. |
-| Entrega | Tag, informe, video y defensa | Bundle, PDF, MP4, guía de compilación y DEFENSA.md | Etiqueta local final, informe de 8 páginas, video narrado de 150 s. |
+| Entrega | Tag, informe, video y defensa | Bundle, PDF, MP4, guía de compilación y DEFENSA.md | Etiqueta final en GitHub para el corte original. Rama avance3-final para la versión revisada. Informe de 8 páginas y video narrado de 150 s verificado. Defender oralmente y cotejar dos fuentes con la bibliografía de la asignatura. |
 
 La tasa por escenario se calcula con ensayos independientes y denominador
 fijo de cinco por caso. Los reintentos de la misión y su tasa por visita
@@ -22,3 +22,5 @@ temporales de los cuatro registros CWRU elegidos.
 
 Para ejecutar las comprobaciones y guardar una nueva evidencia, consultar
 [Compilación y video](COMPILACION_Y_VIDEO.md).
+
+La corrida WSL se revalidó a partir de las 15 visitas y los tres planes del registro. El resumen sin datos de terminal está en resultados/final/gazebo_wsl_gui_resumen.json.

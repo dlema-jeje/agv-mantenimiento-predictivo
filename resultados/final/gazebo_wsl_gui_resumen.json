@@ -1,0 +1,55 @@
+{
+  "rondas": 3,
+  "visitas": 15,
+  "primeras": [
+    "E3",
+    "E2",
+    "E5"
+  ],
+  "max_ed_m": 0.00745767044515297,
+  "max_et_deg": 4.379578667696232,
+  "max_lateral_m": 0.00816926685924857,
+  "acople_promedio_s": 9.631066666666666,
+  "reintentos": 0,
+  "tiempo_pared_s": 134.994,
+  "planes": {
+    "1": [
+      "E3",
+      "E4",
+      "E1",
+      "E2",
+      "E5"
+    ],
+    "2": [
+      "E2",
+      "E3",
+      "E4",
+      "E1",
+      "E5"
+    ],
+    "3": [
+      "E5",
+      "E4",
+      "E3",
+      "E1",
+      "E2"
+    ]
+  },
+  "diagnosticos_falla": [
+    {
+      "ronda": 1,
+      "estacion": "E2",
+      "clase": "inner_race"
+    },
+    {
+      "ronda": 2,
+      "estacion": "E5",
+      "clase": "ball"
+    },
+    {
+      "ronda": 3,
+      "estacion": "E5",
+      "clase": "outer_race"
+    }
+  ]
+}

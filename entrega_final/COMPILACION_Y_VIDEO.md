@@ -51,7 +51,7 @@ ajuste debe considerar la misma carga y origen de los registros.
       --matlab resultados/final/paridad_matlab.csv
 
 El segundo comando requiere MATLAB instalado y activado. Genera
-paridad_matlab.csv y paridad_error_matlab_pct.csv. La comparación exige
+paridad_matlab.csv, paridad_error_matlab_pct.csv y paridad_matlab_detalle.csv. Este último identifica las nueve características en cada una de las cinco ventanas. La comparación exige
 menos de 0,1 % en cada uno de los 45 valores. La evidencia SciPy de referencia
 se identifica por separado. Si MATLAB solo existe en Windows, abrir el proyecto
 en MATLAB, ubicarse en la raíz y ejecutar:

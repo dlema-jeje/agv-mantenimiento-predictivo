@@ -1,0 +1,16 @@
+escenario,repeticion,x_inicial_m,y_inicial_m,yaw_inicial_grados,pose_observada_gazebo,estado,acople_ejecutado,acople_exitoso,observaciones
+frontal,1,0.65,-1.4,0.0,0.65018 -1.40001 0.017679 0.000553 0.01232 0.00013,ESCENARIO_PREPARADO,NO,,Configuracion inicial en Gazebo; sin movimiento de acoplamiento
+frontal,2,0.65,-1.4,0.0,0.650167 -1.40001 0.017679 0.000495 0.011739 0.000152,ESCENARIO_PREPARADO,NO,,Configuracion inicial en Gazebo; sin movimiento de acoplamiento
+frontal,3,0.65,-1.4,0.0,0.650182 -1.40001 0.017679 0.000497 0.01226 0.000157,ESCENARIO_PREPARADO,NO,,Configuracion inicial en Gazebo; sin movimiento de acoplamiento
+frontal,4,0.65,-1.4,0.0,0.650205 -1.40001 0.01768 0.000487 0.0145 0.000163,ESCENARIO_PREPARADO,NO,,Configuracion inicial en Gazebo; sin movimiento de acoplamiento
+frontal,5,0.65,-1.4,0.0,0.65004 -1.40001 0.018109 0.000718 -0.001634 0.000149,ESCENARIO_PREPARADO,NO,,Configuracion inicial en Gazebo; sin movimiento de acoplamiento
+desalineacion_15,1,0.65,-1.4,14.999999999999998,0.650099 -1.39998 0.017864 0.000489 0.006977 0.261955,ESCENARIO_PREPARADO,NO,,Configuracion inicial en Gazebo; sin movimiento de acoplamiento
+desalineacion_15,2,0.65,-1.4,14.999999999999998,0.650029 -1.40001 0.018062 0.000678 -0.000846 0.26194,ESCENARIO_PREPARADO,NO,,Configuracion inicial en Gazebo; sin movimiento de acoplamiento
+desalineacion_15,3,0.65,-1.4,14.999999999999998,0.650059 -1.4 0.017931 0.000557 0.003154 0.26195,ESCENARIO_PREPARADO,NO,,Configuracion inicial en Gazebo; sin movimiento de acoplamiento
+desalineacion_15,4,0.65,-1.4,14.999999999999998,0.650065 -1.4 0.017933 0.000555 0.003041 0.261941,ESCENARIO_PREPARADO,NO,,Configuracion inicial en Gazebo; sin movimiento de acoplamiento
+desalineacion_15,5,0.65,-1.4,14.999999999999998,0.650158 -1.39997 0.017679 0.000549 0.01227 0.261949,ESCENARIO_PREPARADO,NO,,Configuracion inicial en Gazebo; sin movimiento de acoplamiento
+error_supervisor,1,0.65,-1.3699999999999999,10.0,0.650148 -1.36999 0.01768 0.000501 0.010602 0.174689,ESCENARIO_PREPARADO,NO,,Configuracion inicial en Gazebo; sin movimiento de acoplamiento
+error_supervisor,2,0.65,-1.3699999999999999,10.0,0.650157 -1.36998 0.01768 0.000478 0.010857 0.17469,ESCENARIO_PREPARADO,NO,,Configuracion inicial en Gazebo; sin movimiento de acoplamiento
+error_supervisor,3,0.65,-1.3699999999999999,10.0,0.650027 -1.37001 0.01816 0.000771 -0.002534 0.174683,ESCENARIO_PREPARADO,NO,,Configuracion inicial en Gazebo; sin movimiento de acoplamiento
+error_supervisor,4,0.65,-1.3699999999999999,10.0,0.650178 -1.36998 0.017679 0.000591 0.012623 0.174696,ESCENARIO_PREPARADO,NO,,Configuracion inicial en Gazebo; sin movimiento de acoplamiento
+error_supervisor,5,0.65,-1.3699999999999999,10.0,0.650145 -1.36999 0.01768 0.000502 0.010466 0.174688,ESCENARIO_PREPARADO,NO,,Configuracion inicial en Gazebo; sin movimiento de acoplamiento

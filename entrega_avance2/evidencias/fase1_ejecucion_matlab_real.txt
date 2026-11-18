@@ -1,0 +1,31 @@
+
+	Trial License -- for use to evaluate programs for possible purchase as an end-user only.
+
+[Warning: Unable to obtain a change notification handle for \\wsl.localhost\ubuntu-22.04\home\diego\agv_predictivo\matlab\difuso.]
+[> In run (line 34)]
+==========================================
+FASE 1 - PRUEBA REAL EN MATLAB R2026b
+==========================================
+Archivo FIS: \\wsl.localhost\ubuntu-22.04\home\diego\agv_predictivo\matlab\difuso\acople_agv.fis
+
+Tipo de controlador: mamfis
+Entradas: 2
+Salidas: 2
+Reglas: 25
+
+PRUEBAS DE ENTRADA Y SALIDA:
+ed [m]     et [grados]       v [m/s]       omega [rad/s]
+  -0.040        +0.0        -0.034280       -0.000000
+  +0.000        +0.0        +0.000000       -0.000000
+  +0.040       +12.0        +0.017152       +0.470895
+  +0.040       -12.0        +0.017152       -0.470895
+  +0.150        +0.0        +0.070000       -0.000000
+  +0.400        +0.0        +0.126152       -0.000000
+  +0.400       +15.0        +0.026646       +0.626131
+  +0.400       -15.0        +0.026646       -0.626131
+  +0.200        +7.0        +0.070000       +0.281690
+  +0.200        -7.0        +0.070000       -0.281690
+
+RESULTADO: MATLAB EVALUO LOS 10 CASOS
+MOVIMIENTO DEL ROBOT: NO
+==========================================

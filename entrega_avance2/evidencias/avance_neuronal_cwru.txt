@@ -1,0 +1,68 @@
+=======================================================
+AVANCE NEURONAL - EVIDENCIA CWRU
+=======================================================
+
+1. ARCHIVOS
+caracteristicas_cwru_final.csv EXISTE
+resultados_final.json EXISTE
+matriz_confusion_final.csv EXISTE
+modelo_final.joblib EXISTE
+entrenar_final.py EXISTE
+
+2. CARACTERISTICAS Y PARTICIONES
+Ventanas totales: 574
+Columnas: registro, clase, conjunto, muestra_inicio, muestra_fin_exclusivo, rms, pico, curtosis, asimetria, desviacion_estandar, factor_cresta
+Particiones:
+  entrenamiento: 410
+  prueba: 82
+  validacion: 82
+
+3. CONFIGURACION DEL PROCESAMIENTO
+2048: PRESENTE
+1024: PRESENTE
+StandardScaler: PRESENTE
+MLPClassifier: PRESENTE
+kurtosis: PRESENTE
+skew: PRESENTE
+
+4. RESULTADOS DEL MODELO
+{
+  "division_temporal": [
+    0.7,
+    0.15,
+    0.15
+  ],
+  "ventana_muestras": 2048,
+  "solapamiento": 0.5,
+  "escalador_ajustado_solo_entrenamiento": true,
+  "registros": [
+    "97.mat",
+    "105.mat",
+    "118.mat",
+    "130.mat"
+  ],
+  "ventanas_por_conjunto": {
+    "entrenamiento": 410,
+    "validacion": 82,
+    "prueba": 82
+  },
+  "exactitud_validacion": 1.0,
+  "exactitud_prueba": 1.0,
+  "advertencia": "Evaluacion temporal dentro de los mismos registros; no equivale a generalizacion a registros independientes."
+}
+
+5. MATRIZ DE CONFUSION
+,falla_bola,falla_externa,falla_interna,normal
+falla_bola,16,0,0,0
+falla_externa,0,16,0,0
+falla_interna,0,0,16,0
+normal,0,0,0,34
+
+
+6. ALCANCE DE LA EVIDENCIA
+Entrenamiento neuronal: REALIZADO
+Evaluacion con particiones temporales: REALIZADA
+Generalizacion a grabaciones independientes: NO DEMOSTRADA
+Entrenamiento nuevo en este paso: NO
+Movimiento del robot: NO
+=======================================================

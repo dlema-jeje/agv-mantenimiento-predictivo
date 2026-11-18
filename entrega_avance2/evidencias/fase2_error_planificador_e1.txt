@@ -1,0 +1,2 @@
+PASO 275 - ERROR DETALLADO DE NAV2
+ERROR: tiempo agotado esperando aceptacion

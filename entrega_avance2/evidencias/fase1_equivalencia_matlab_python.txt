@@ -1,0 +1,22 @@
+=================================================================
+EQUIVALENCIA REAL MATLAB R2026b VS PYTHON
+=================================================================
+Caso | Diferencia v [m/s] | Diferencia omega [rad/s] | Estado
+   1 |           0.000530 |                 0.000000 | CUMPLE
+   2 |           0.000000 |                 0.000000 | CUMPLE
+   3 |           0.000008 |                 0.004442 | CUMPLE
+   4 |           0.000008 |                 0.004442 | CUMPLE
+   5 |           0.000000 |                 0.000000 | CUMPLE
+   6 |           0.000515 |                 0.000000 | CUMPLE
+   7 |           0.000021 |                 0.004336 | CUMPLE
+   8 |           0.000021 |                 0.004336 | CUMPLE
+   9 |           0.000000 |                 0.000137 | CUMPLE
+  10 |           0.000000 |                 0.000137 | CUMPLE
+
+RESULTADO FINAL
+Error lineal máximo: 0.000530 m/s (límite 0.004)
+Error angular máximo: 0.004442 rad/s (límite 0.032)
+Casos aprobados: 10/10
+EQUIVALENCIA: APROBADA
+Movimiento del robot: NO
+=================================================================

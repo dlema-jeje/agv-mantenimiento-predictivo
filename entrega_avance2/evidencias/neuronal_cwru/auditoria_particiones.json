@@ -1,0 +1,24 @@
+{
+  "particion_antes_de_ventanas": true,
+  "ventana_muestras": 2048,
+  "solapamiento_muestras": 1024,
+  "solapamiento_porcentaje": 50,
+  "sin_muestras_compartidas_entre_conjuntos": true,
+  "registros_por_clase": {
+    "inner_race": 1,
+    "ball": 1,
+    "outer_race": 1,
+    "normal": 1
+  },
+  "ventanas_por_conjunto": {
+    "entrenamiento": 410,
+    "validacion": 82,
+    "prueba": 82
+  },
+  "exactitud": {
+    "entrenamiento": 1.0,
+    "validacion": 1.0,
+    "prueba": 1.0
+  },
+  "nota": "Partición temporal dentro de cada registro; ventanas de un mismo registro pueden compartir características de origen entre conjuntos, aunque no muestras."
+}

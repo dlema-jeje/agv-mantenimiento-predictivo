@@ -1,0 +1,80 @@
+==========================================
+PASO 265 - DIAGNOSTICO DE PLANIFICACION NAV2
+==========================================
+
+=== 1. ESTADO DEL PLANIFICADOR ===
+active [3]
+
+=== 2. PLUGINS CONFIGURADOS ===
+String values are: ['GridBased']
+String value is: nav2_navfn_planner/NavfnPlanner
+
+=== 3. MAPAS DE COSTES ===
+/global_costmap/costmap
+/global_costmap/costmap_raw
+/global_costmap/costmap_updates
+/global_costmap/footprint
+/global_costmap/global_costmap/transition_event
+/global_costmap/published_footprint
+/local_costmap/clearing_endpoints
+/local_costmap/costmap
+/local_costmap/costmap_raw
+/local_costmap/costmap_updates
+/local_costmap/footprint
+/local_costmap/local_costmap/transition_event
+/local_costmap/published_footprint
+/local_costmap/voxel_grid
+/map
+
+=== 4. MAPA GLOBAL: DIMENSIONES ===
+map_load_time:
+  sec: 0
+  nanosec: 0
+resolution: 0.05000000074505806
+width: 100
+height: 80
+origin:
+  position:
+    x: -2.5
+    y: -2.0
+    z: 0.0
+  orientation:
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+---
+
+=== 5. MAPA LOCAL: DIMENSIONES ===
+map_load_time:
+  sec: 0
+  nanosec: 0
+resolution: 0.05000000074505806
+width: 60
+height: 60
+origin:
+  position:
+    x: -0.30000000037252905
+    y: -2.7000000003725297
+    z: 0.0
+  orientation:
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+---
+
+=== 6. ESTADO DEL ROBOT ===
+x: 1.1967552541210462
+y: -1.2187651152681716
+z: 0.0
+---
+
+=== 7. OBJETIVO E1 ===
+E1,0.65,-1.4,0,1.05,-1.4,0
+
+=== 8. ARBITRO ===
+data: STOP
+---
+
+=== FIN PASO 265 ===

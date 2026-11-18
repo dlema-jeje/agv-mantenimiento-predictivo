@@ -1,0 +1,10 @@
+               precision    recall  f1-score   support
+
+   falla_bola       1.00      1.00      1.00        16
+falla_externa       1.00      1.00      1.00        16
+falla_interna       1.00      1.00      1.00        16
+       normal       1.00      1.00      1.00        34
+
+     accuracy                           1.00        82
+    macro avg       1.00      1.00      1.00        82
+ weighted avg       1.00      1.00      1.00        82

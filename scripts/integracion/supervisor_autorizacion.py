@@ -25,8 +25,13 @@ class SupervisorAutorizacion(Node):
         self.t_odom = 0.0
         self.t_scan = 0.0
 
+        self.estado_arbitro = None
+        self.t_arbitro = 0.0
+
         self.estado_nav2 = "NO_CONFIRMADO"
+        self.t_nav2 = 0.0
         self.preacoplamiento = "NO_CONFIRMADO"
+        self.t_preacoplamiento = 0.0
 
         self.pub = self.create_publisher(
             String, "/agv/diagnostico_autorizacion", 10
@@ -40,7 +45,22 @@ class SupervisorAutorizacion(Node):
             LaserScan, "/scan", self.recibir_scan, 10
         )
 
-        self.create_timer(1.0, self.evaluar)
+        self.create_subscription(
+            String, "/agv/estado_arbitro",
+            self.recibir_estado_arbitro, 10
+        )
+
+        self.create_subscription(
+            String, "/agv/estado_nav2",
+            self.recibir_estado_nav2, 10
+        )
+
+        self.create_subscription(
+            String, "/agv/estado_preacoplamiento",
+            self.recibir_preacoplamiento, 10
+        )
+
+        self.create_timer(0.2, self.evaluar)
 
         self.get_logger().info(
             "Supervisor diagnóstico iniciado. "
@@ -54,6 +74,18 @@ class SupervisorAutorizacion(Node):
     def recibir_scan(self, msg):
         self.scan = msg
         self.t_scan = time.monotonic()
+
+    def recibir_estado_arbitro(self, msg):
+        self.estado_arbitro = msg.data.strip().upper()
+        self.t_arbitro = time.monotonic()
+
+    def recibir_estado_nav2(self, msg):
+        self.estado_nav2 = msg.data.strip().upper()
+        self.t_nav2 = time.monotonic()
+
+    def recibir_preacoplamiento(self, msg):
+        self.preacoplamiento = msg.data.strip().upper()
+        self.t_preacoplamiento = time.monotonic()
 
     def distancia_frontal(self):
         if self.scan is None:
@@ -126,10 +158,27 @@ class SupervisorAutorizacion(Node):
                     f"OBSTACULO_FRONTAL_{distancia:.3f}m"
                 )
 
+        if self.estado_arbitro is None:
+            razones.append("ARBITRO_NO_DISPONIBLE")
+        elif ahora - self.t_arbitro > antiguedad:
+            razones.append("ARBITRO_OBSOLETO")
+        elif self.estado_arbitro != "STOP":
+            razones.append("ARBITRO_NO_ESTA_EN_STOP")
+
         # Estas condiciones requieren una integración
         # posterior con Nav2 y el supervisor geométrico.
-        razones.append("NAV2_NO_CONFIRMADO")
-        razones.append("PREACOPLAMIENTO_NO_CONFIRMADO")
+        if self.t_nav2 == 0.0:
+            razones.append("NAV2_NO_CONFIRMADO")
+        elif ahora - self.t_nav2 > antiguedad:
+            razones.append("NAV2_ESTADO_OBSOLETO")
+        elif self.estado_nav2 != "FINALIZADO":
+            razones.append("NAV2_NO_CONFIRMADO")
+        if self.t_preacoplamiento == 0.0:
+            razones.append("PREACOPLAMIENTO_NO_CONFIRMADO")
+        elif ahora - self.t_preacoplamiento > antiguedad:
+            razones.append("PREACOPLAMIENTO_OBSOLETO")
+        elif self.preacoplamiento != "POSE_APTA":
+            razones.append("PREACOPLAMIENTO_NO_CONFIRMADO")
 
         estado = String()
         estado.data = (

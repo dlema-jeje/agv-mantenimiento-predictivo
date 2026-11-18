@@ -48,3 +48,10 @@ datos/cwru/*.mat
 *.bak
 .venv-avance2/
 *:Zone.Identifier
+
+# Entorno neuronal
+.venv_neuronal/
+
+# Archivos temporales Python
+__pycache__/
+*.pyc

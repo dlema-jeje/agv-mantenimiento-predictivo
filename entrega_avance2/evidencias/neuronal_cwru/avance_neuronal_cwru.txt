@@ -1,0 +1,27 @@
+ADELANTO NEURONAL CWRU — EVIDENCIA REAL
+
+Registros procesados: 4
+Clases: {'inner_race': 1, 'ball': 1, 'outer_race': 1, 'normal': 1}
+1. Cada registro se dividió temporalmente 70/15/15 antes de segmentar.
+2. Ventanas de 2048 muestras, paso 1024 (50 % solapamiento).
+3. Características: rms, pico, curtosis, asimetria, desviacion_estandar, factor_cresta
+4. CSV con conjunto, clase, archivo e índices de muestra.
+5. StandardScaler ajustado exclusivamente con entrenamiento.
+6. Primer entrenamiento MLP(32,16) ejecutado.
+
+Ventanas: {'entrenamiento': 410, 'validacion': 82, 'prueba': 82}
+Exactitud (train/val/test): {'entrenamiento': 1.0, 'validacion': 1.0, 'prueba': 1.0}
+
+REPORTE DE CLASIFICACIÓN — PRUEBA
+              precision    recall  f1-score   support
+
+        ball       1.00      1.00      1.00        16
+  inner_race       1.00      1.00      1.00        16
+      normal       1.00      1.00      1.00        34
+  outer_race       1.00      1.00      1.00        16
+
+    accuracy                           1.00        82
+   macro avg       1.00      1.00      1.00        82
+weighted avg       1.00      1.00      1.00        82
+
+ADVERTENCIA: el corte temporal evita compartir muestras, pero no equivale a evaluar sobre máquinas o registros independientes.

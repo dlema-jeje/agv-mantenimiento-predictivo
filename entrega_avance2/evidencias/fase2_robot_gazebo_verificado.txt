@@ -1,0 +1,51 @@
+==========================================
+PASO 272 - ROBOT REAL EN GAZEBO
+==========================================
+
+=== 1. MODELOS DEL MUNDO ===
+requester: making request: gazebo_msgs.srv.GetModelList_Request()
+
+response:
+gazebo_msgs.srv.GetModelList_Response(header=std_msgs.msg.Header(stamp=builtin_interfaces.msg.Time(sec=135, nanosec=719000000), frame_id=''), model_names=['ground_plane', 'area_industrial', 'maquina_1', 'placa_1', 'maquina_2', 'placa_2', 'maquina_3', 'placa_3', 'maquina_4', 'placa_4', 'maquina_5', 'placa_5', 'turtlebot3_waffle'], success=True)
+
+
+=== 2. NODO DEL ROBOT ===
+/turtlebot3_diff_drive
+/turtlebot3_imu
+/turtlebot3_laserscan
+
+=== 3. POSICION DEL ROBOT EN GAZEBO ===
+x: 1.2030574773805023
+y: -1.1999914379079109
+z: 0.017828542254620907
+---
+
+=== 4. SENSOR LASER ===
+stamp:
+  sec: 141
+  nanosec: 375000000
+frame_id: base_scan
+---
+
+=== 5. LOCALIZACION NAV2 ===
+x: 1.1968126539918624
+y: -1.2176139637762007
+z: 0.0
+---
+
+=== 6. SEGURIDAD ===
+data: STOP
+---
+
+=== 7. VELOCIDAD DEL ROBOT ===
+linear:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+angular:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+
+=== FIN PASO 272 ===

@@ -1,0 +1,77 @@
+==========================================
+PASO 263 - PREPARACION DE NAVEGACION NAV2
+==========================================
+
+=== 1. ESTADO DEL ARBITRO ===
+data: STOP
+---
+
+=== 2. LOCALIZACION AMCL ===
+position:
+  x: 1.1967552541210462
+  y: -1.2187651152681716
+  z: 0.0
+orientation:
+  x: 0.0
+  y: 0.0
+  z: 0.2281955217741613
+  w: 0.9736153264211787
+---
+
+=== 3. MAPA ===
+Type: nav_msgs/msg/OccupancyGrid
+Publisher count: 1
+Subscription count: 2
+
+=== 4. TRANSFORMACIONES DISPONIBLES ===
+[INFO] [1794368252.584146780] [tf2_echo]: Waiting for transform map ->  odom: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+At time 20828.129000000
+- Translation: [0.060, 0.047, -0.021]
+- Rotation: in Quaternion (xyzw) [0.002, -0.003, -0.030, 1.000]
+- Rotation: in RPY (radian) [0.003, -0.006, -0.061]
+- Rotation: in RPY (degree) [0.189, -0.333, -3.471]
+- Matrix:
+  0.998  0.061 -0.006  0.060
+ -0.061  0.998 -0.003  0.047
+  0.006  0.003  1.000 -0.021
+  0.000  0.000  0.000  1.000
+At time 20828.931000000
+- Translation: [0.060, 0.047, -0.021]
+- Rotation: in Quaternion (xyzw) [0.002, -0.003, -0.030, 1.000]
+- Rotation: in RPY (radian) [0.003, -0.006, -0.061]
+- Rotation: in RPY (degree) [0.189, -0.333, -3.471]
+- Matrix:
+  0.998  0.061 -0.006  0.060
+ -0.061  0.998 -0.003  0.047
+  0.006  0.003  1.000 -0.021
+
+=== 5. ACCION DE NAVEGACION ===
+/compute_path_to_pose [nav2_msgs/action/ComputePathToPose]
+/navigate_to_pose [nav2_msgs/action/NavigateToPose]
+
+=== 6. OBJETIVOS DE ACOPLAMIENTO ===
+estacion,pre_x,pre_y,pre_yaw,final_x,final_y,final_yaw
+E1,0.65,-1.4,0,1.05,-1.4,0
+E2,0.65,-0.7,0,1.05,-0.7,0
+E3,0.65,0.0,0,1.05,0.0,0
+E4,0.65,0.7,0,1.05,0.7,0
+E5,0.65,1.4,0,1.05,1.4,0
+
+=== 7. ESTADO DE MOVIMIENTO ===
+A message was lost!!!
+	total count change:2
+	total count: 2---
+A message was lost!!!
+	total count change:1
+	total count: 3---
+A message was lost!!!
+	total count change:3
+	total count: 6---
+linear:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+angular:
+  x: 0.0
+
+=== FIN PASO 263 ===

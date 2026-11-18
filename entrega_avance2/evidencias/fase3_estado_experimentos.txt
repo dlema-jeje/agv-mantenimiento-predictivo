@@ -1,0 +1,46 @@
+=======================================================
+FASE 3 - EVIDENCIA DE EVALUACION EN GAZEBO
+=======================================================
+
+1. MATRIZ EXPERIMENTAL
+Archivo: entrega_avance2/experimentos/matriz_20_ensayos.csv
+Total de ensayos registrados: 20
+Columnas: escenario, repeticion, desalineacion_inicial_grados, desplazamiento_lateral_inicial_m, perturbacion, tipo_ensayo, estado, error_distancia_final_m, error_angular_final_grados, error_lateral_final_m, tiempo_acople_s, oscilaciones, reintentos, acople_exitoso, observaciones
+
+2. ESTADOS DE EJECUCION
+Campo: estado
+  NO_EJECUTADO: 20
+
+3. ESCENARIOS
+  desalineacion_15: 5 ensayos
+  error_supervisor: 5 ensayos
+  frontal: 5 ensayos
+  perturbacion_lateral: 5 ensayos
+
+4. RESULTADOS NUMERICOS DISPONIBLES
+  desplazamiento_lateral_inicial_m: 20/20 valores
+  error_distancia_final_m: 0/20 valores
+  error_angular_final_grados: 0/20 valores
+  error_lateral_final_m: 0/20 valores
+  tiempo_acople_s: 0/20 valores
+  reintentos: 0/20 valores
+
+5. ARCHIVOS DE EVALUACION Y REDISEÑO
+  comparacion_antes_despues.csv (135 bytes)
+  evaluar_modelo_numerico.py (4479 bytes)
+  evaluar_modelo_numerico_redisenio.py (4612 bytes)
+  matriz_20_ensayos.csv (1723 bytes)
+  preparar_evaluacion.py (2718 bytes)
+  pruebas_seguridad_mision.csv (1269 bytes)
+  resultados_20_ensayos_numericos.csv (2173 bytes)
+  resultados_20_ensayos_redisenio_numerico.csv (1987 bytes)
+  resumen_comparativo_numerico.csv (641 bytes)
+
+6. CONCLUSION
+Una matriz preparada no equivale a ensayos ejecutados.
+Solo deben presentarse como resultados Gazebo las
+mediciones obtenidas de ejecuciones reales.
+
+Nodos iniciados: NO
+Movimiento ordenado: NO
+=======================================================

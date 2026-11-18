@@ -1,0 +1,34 @@
+==========================================
+FASE 2 - PRECISION Y CONFIRMACION TEMPORAL
+==========================================
+
+CASO 1: ENTRADA MOMENTANEA A TOLERANCIA
+t=10.0s ed=+0.005m et=+2.0° sensor=True => ACOPLE_DIFUSO | CONFIRMANDO_TOLERANCIA
+t=10.5s ed=+0.005m et=+2.0° sensor=True => ACOPLE_DIFUSO | CONFIRMANDO_TOLERANCIA
+Exito antes de 1 segundo: False
+
+CASO 2: PERMANENCIA DE 1 SEGUNDO
+t=20.0s ed=+0.005m et=+2.0° sensor=True => ACOPLE_DIFUSO | CONFIRMANDO_TOLERANCIA
+t=20.5s ed=+0.005m et=+2.0° sensor=True => ACOPLE_DIFUSO | CONFIRMANDO_TOLERANCIA
+t=21.1s ed=+0.005m et=+2.0° sensor=True => COMPLETADO | TOLERANCIA_SOSTENIDA_1_SEGUNDO
+Exito tras 1.1 segundos: True
+
+CASO 3: SALIDA DE TOLERANCIA
+t=30.0s ed=+0.005m et=+2.0° sensor=True => ACOPLE_DIFUSO | CONFIRMANDO_TOLERANCIA
+t=30.6s ed=+0.020m et=+2.0° sensor=True => ACOPLE_DIFUSO | FUERA_DE_TOLERANCIA
+t=31.1s ed=+0.005m et=+2.0° sensor=True => ACOPLE_DIFUSO | CONFIRMANDO_TOLERANCIA
+Exito tras interrupcion: False
+
+CASO 4: SENSOR INVALIDO
+t=40.0s ed=+0.005m et=+2.0° sensor=False => RECUPERACION | LECTURA_O_SEGURIDAD_INVALIDA
+Estado con sensor invalido: RECUPERACION
+
+=== COMPROBACIONES ===
+t=50.0s ed=+0.005m et=+2.0° sensor=True => ACOPLE_DIFUSO | CONFIRMANDO_TOLERANCIA
+t=51.1s ed=+0.005m et=+2.0° sensor=True => COMPLETADO | TOLERANCIA_SOSTENIDA_1_SEGUNDO
+No completa antes de 1 segundo OK
+Completa tras 1 segundo OK
+
+Movimiento del robot: NO
+Nodos ROS iniciados: NO
+==========================================

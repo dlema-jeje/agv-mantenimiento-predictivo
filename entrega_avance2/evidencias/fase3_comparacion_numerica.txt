@@ -1,0 +1,46 @@
+=======================================================
+FASE 3 - COMPARACION NUMERICA ANTES / DESPUES
+=======================================================
+
+=== resultados_20_ensayos_numericos.csv ===
+Registros: 20
+Columnas: escenario, repeticion, tipo_ensayo, estado, exito, error_distancia_final_m, error_angular_final_grados, error_lateral_final_m, tiempo_s, oscilaciones, reintentos
+escenario=centrado | repeticion=1 | tipo_ensayo=MODELO_NUMERICO_NO_GAZEBO | estado=DIVERGENCIA_ANGULAR | exito=0 | error_distancia_final_m=0.005395 | error_angular_final_grados=45.2431 | error_lateral_final_m=-0.001433 | tiempo_s=5.25 | oscilaciones=0 | reintentos=0
+escenario=centrado | repeticion=2 | tipo_ensayo=MODELO_NUMERICO_NO_GAZEBO | estado=DIVERGENCIA_ANGULAR | exito=0 | error_distancia_final_m=0.005576 | error_angular_final_grados=46.4958 | error_lateral_final_m=-0.00028 | tiempo_s=5.25 | oscilaciones=0 | reintentos=0
+escenario=centrado | repeticion=3 | tipo_ensayo=MODELO_NUMERICO_NO_GAZEBO | estado=DIVERGENCIA_ANGULAR | exito=0 | error_distancia_final_m=0.005685 | error_angular_final_grados=46.1545 | error_lateral_final_m=0.000787 | tiempo_s=5.25 | oscilaciones=0 | reintentos=0
+escenario=centrado | repeticion=4 | tipo_ensayo=MODELO_NUMERICO_NO_GAZEBO | estado=DIVERGENCIA_ANGULAR | exito=0 | error_distancia_final_m=0.005546 | error_angular_final_grados=45.0443 | error_lateral_final_m=0.00171 | tiempo_s=5.3 | oscilaciones=0 | reintentos=0
+escenario=centrado | repeticion=5 | tipo_ensayo=MODELO_NUMERICO_NO_GAZEBO | estado=DIVERGENCIA_ANGULAR | exito=0 | error_distancia_final_m=0.005646 | error_angular_final_grados=46.4057 | error_lateral_final_m=0.002778 | tiempo_s=5.35 | oscilaciones=0 | reintentos=0
+... 15 registros adicionales
+
+=== resultados_20_ensayos_redisenio_numerico.csv ===
+Registros: 20
+Columnas: escenario, repeticion, tipo_ensayo, estado, exito, error_distancia_final_m, error_angular_final_grados, error_lateral_final_m, tiempo_s, oscilaciones, reintentos
+escenario=centrado | repeticion=1 | tipo_ensayo=MODELO_NUMERICO_NO_GAZEBO | estado=ACOPLE_NUMERICO | exito=1 | error_distancia_final_m=0.005112 | error_angular_final_grados=-0.0 | error_lateral_final_m=-0.002 | tiempo_s=4.7 | oscilaciones=0 | reintentos=0
+escenario=centrado | repeticion=2 | tipo_ensayo=MODELO_NUMERICO_NO_GAZEBO | estado=ACOPLE_NUMERICO | exito=1 | error_distancia_final_m=0.005134 | error_angular_final_grados=-0.0 | error_lateral_final_m=-0.001 | tiempo_s=4.7 | oscilaciones=0 | reintentos=0
+escenario=centrado | repeticion=3 | tipo_ensayo=MODELO_NUMERICO_NO_GAZEBO | estado=ACOPLE_NUMERICO | exito=1 | error_distancia_final_m=0.00513 | error_angular_final_grados=-0.0 | error_lateral_final_m=-0.0 | tiempo_s=4.75 | oscilaciones=0 | reintentos=0
+escenario=centrado | repeticion=4 | tipo_ensayo=MODELO_NUMERICO_NO_GAZEBO | estado=ACOPLE_NUMERICO | exito=1 | error_distancia_final_m=0.005126 | error_angular_final_grados=-0.0 | error_lateral_final_m=0.001 | tiempo_s=4.8 | oscilaciones=0 | reintentos=0
+escenario=centrado | repeticion=5 | tipo_ensayo=MODELO_NUMERICO_NO_GAZEBO | estado=ACOPLE_NUMERICO | exito=1 | error_distancia_final_m=0.005123 | error_angular_final_grados=-0.0 | error_lateral_final_m=0.002 | tiempo_s=4.85 | oscilaciones=0 | reintentos=0
+... 15 registros adicionales
+
+=== resumen_comparativo_numerico.csv ===
+Registros: 8
+Columnas: version, escenario, ensayos, exitos, tasa_exito_pct, error_distancia_abs_medio_m, error_angular_abs_medio_grados, error_lateral_abs_medio_m, tiempo_medio_s, oscilaciones_totales
+version=ANTES | escenario=centrado | ensayos=5 | exitos=0 | tasa_exito_pct=0.0 | error_distancia_abs_medio_m=0.00557 | error_angular_abs_medio_grados=45.869 | error_lateral_abs_medio_m=0.0014 | tiempo_medio_s=5.28 | oscilaciones_totales=0
+version=ANTES | escenario=yaw_15_grados | ensayos=5 | exitos=0 | tasa_exito_pct=0.0 | error_distancia_abs_medio_m=0.15962 | error_angular_abs_medio_grados=46.29 | error_lateral_abs_medio_m=0.01164 | tiempo_medio_s=0.84 | oscilaciones_totales=0
+version=ANTES | escenario=lateral_3cm_yaw_10 | ensayos=5 | exitos=0 | tasa_exito_pct=0.0 | error_distancia_abs_medio_m=0.15049 | error_angular_abs_medio_grados=45.319 | error_lateral_abs_medio_m=0.04304 | tiempo_medio_s=1.0 | oscilaciones_totales=0
+version=ANTES | escenario=perturbacion_lateral | ensayos=5 | exitos=0 | tasa_exito_pct=0.0 | error_distancia_abs_medio_m=0.00557 | error_angular_abs_medio_grados=45.869 | error_lateral_abs_medio_m=0.01071 | tiempo_medio_s=5.28 | oscilaciones_totales=0
+version=DESPUES | escenario=centrado | ensayos=5 | exitos=5 | tasa_exito_pct=100.0 | error_distancia_abs_medio_m=0.00512 | error_angular_abs_medio_grados=0.0 | error_lateral_abs_medio_m=0.0012 | tiempo_medio_s=4.76 | oscilaciones_totales=0
+version=DESPUES | escenario=yaw_15_grados | ensayos=5 | exitos=5 | tasa_exito_pct=100.0 | error_distancia_abs_medio_m=0.00512 | error_angular_abs_medio_grados=0.0 | error_lateral_abs_medio_m=0.00547 | tiempo_medio_s=4.85 | oscilaciones_totales=0
+version=DESPUES | escenario=lateral_3cm_yaw_10 | ensayos=5 | exitos=0 | tasa_exito_pct=0.0 | error_distancia_abs_medio_m=0.005 | error_angular_abs_medio_grados=0.0 | error_lateral_abs_medio_m=0.03392 | tiempo_medio_s=19.95 | oscilaciones_totales=0
+version=DESPUES | escenario=perturbacion_lateral | ensayos=5 | exitos=5 | tasa_exito_pct=100.0 | error_distancia_abs_medio_m=0.00512 | error_angular_abs_medio_grados=0.0 | error_lateral_abs_medio_m=0.01 | tiempo_medio_s=4.76 | oscilaciones_totales=0
+
+=== comparacion_antes_despues.csv ===
+Registros: 0
+Columnas: version, escenario, ensayos_ejecutados, acoples_exitosos, error_distancia_medio_m, error_angular_medio_grados, tiempo_medio_s, observaciones
+
+=== INTERPRETACION ===
+Tipo de evidencia: EVALUACION NUMERICA
+Ensayos reales de Gazebo demostrados: 0
+Datos experimentales inventados: NO
+Movimiento ordenado: NO
+=======================================================

@@ -22,7 +22,33 @@ from seguridad_mision import (
 )
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from evidencia_resultado_nav2 import RegistroMisionNav2
+from vinculo_objetivo_nav2 import verificar_objetivo
+from identidad_mision import crear_evidencia
 from registro_resultados_nav2 import registrar_resultado
+
+
+from validacion_final_nav2 import validar_finalizacion_nav2
+
+
+
+def normalizar_estacion_nav2(valor):
+    """Convierte identificadores 1/E1 a E1; rechaza otros valores."""
+    if isinstance(valor, dict):
+        valor = valor.get("estacion")
+
+    if isinstance(valor, bool):
+        raise ValueError("ESTACION_INVALIDA")
+
+    identificador = str(valor).strip().upper()
+
+    if identificador in ("1", "2", "3", "4", "5"):
+        identificador = "E" + identificador
+
+    if identificador not in ("E1", "E2", "E3", "E4", "E5"):
+        raise ValueError("ESTACION_INVALIDA")
+
+    return identificador
 
 
 class ClienteSupervisado(Node):
@@ -50,9 +76,43 @@ class ClienteSupervisado(Node):
             Odometry, "/odom", self.recibir_odom, 10
         )
 
+        self.pub_estado_nav2 = self.create_publisher(
+            String, "/agv/estado_nav2", 10
+        )
+
         self.pub_modo = self.create_publisher(
             String, "/agv/modo_control", 10
         )
+
+        self.pub_evidencia_mision = self.create_publisher(
+            String, "/agv/evidencia_mision_nav2", 10
+        )
+        self._registro_mision = None
+        self.pub_mision_activa = self.create_publisher(
+            String, "/agv/mision_nav2_activa", 10
+        )
+
+
+    def publicar_estado_nav2(self, estado):
+        mensaje = String()
+        mensaje.data = estado
+        self.pub_estado_nav2.publish(mensaje)
+
+        registro = getattr(self, "_registro_mision", None)
+        if registro is None or registro.finalizada:
+            return
+
+        if estado == "FINALIZADO":
+            self.publicar_evidencia_mision(
+                registro.estacion, "FINALIZADO"
+            )
+        elif estado in (
+            "OBJETIVO_RECHAZADO",
+            "RESULTADO_RECIBIDO_NO_AUTORIZADO",
+        ):
+            self.publicar_evidencia_mision(
+                registro.estacion, estado
+            )
 
     def recibir_odom(self, msg):
         self.odom = msg
@@ -156,7 +216,43 @@ class ClienteSupervisado(Node):
 
         return None
 
+
+    def publicar_evidencia_mision(self, estacion, estado):
+        """Publica evidencia solo si existe una misión activa."""
+        if not hasattr(self, "_registro_mision"):
+            return
+
+        if self._registro_mision is None:
+            return
+
+        if self._registro_mision.estacion != estacion:
+            return
+
+        if estado == "NO_CONFIRMADO":
+            evidencia = self._registro_mision.evidencia_inicial()
+        else:
+            evidencia = self._registro_mision.evidencia_resultado(estado)
+
+        mensaje = String()
+        mensaje.data = evidencia
+        self.pub_evidencia_mision.publish(mensaje)
+
     def ejecutar(self, estacion, tiempo_maximo, sin_progreso):
+        estacion_mision = normalizar_estacion_nav2(estacion)
+        self._registro_mision = RegistroMisionNav2(estacion_mision)
+
+        mensaje_mision = String()
+        mensaje_mision.data = crear_evidencia(
+            estacion=estacion_mision,
+            mision_id=self._registro_mision.mision_id,
+            estado="NO_CONFIRMADO",
+        )
+        self.pub_mision_activa.publish(mensaje_mision)
+
+        self.publicar_evidencia_mision(
+            estacion_mision, "NO_CONFIRMADO"
+        )
+        self.publicar_estado_nav2("NO_CONFIRMADO")
         if not self.comprobar():
             raise RuntimeError("Diagnóstico previo no aprobado")
 
@@ -179,6 +275,37 @@ class ClienteSupervisado(Node):
         pose.pose.orientation.w = math.cos(yaw / 2)
         objetivo.pose = pose
 
+        # Verificar el objetivo efectivamente construido antes
+        # de enviarlo a Nav2. No se permite continuar si difiere
+        # del punto de aproximación de la estación seleccionada.
+        estacion_id = normalizar_estacion_nav2(
+            estacion["estacion"]
+        )
+
+        registro_mision = getattr(self, "_registro_mision", None)
+        if registro_mision is None:
+            self.publicar_estado_nav2("OBJETIVO_RECHAZADO")
+            self.get_logger().error("MISION_NAV2_NO_REGISTRADA")
+            return
+
+        vinculo = verificar_objetivo(
+            estacion=estacion_id,
+            mision_id=registro_mision.mision_id,
+            objetivo_x=float(pose.pose.position.x),
+            objetivo_y=float(pose.pose.position.y),
+            objetivo_yaw_rad=2.0 * math.atan2(
+                pose.pose.orientation.z,
+                pose.pose.orientation.w,
+            ),
+        )
+
+        if not vinculo.valido:
+            self.publicar_estado_nav2("OBJETIVO_RECHAZADO")
+            self.get_logger().error(
+                "OBJETIVO_NAV2_NO_COINCIDE: " + vinculo.motivo
+            )
+            return
+
         futuro_envio = self.cliente.send_goal_async(
             objetivo,
             feedback_callback=self.feedback
@@ -199,6 +326,7 @@ class ClienteSupervisado(Node):
         if manejador is None or not manejador.accepted:
             self.solicitar_stop()
             print("RESULTADO: OBJETIVO_RECHAZADO")
+            self.publicar_estado_nav2("OBJETIVO_RECHAZADO")
             return
 
         print("OBJETIVO_ACEPTADO: SI")
@@ -245,8 +373,34 @@ class ClienteSupervisado(Node):
                     "EXITO_CONFIRMADO: "
                     f"{registro['exito_confirmado']}"
                 )
+                self.publicar_estado_nav2(
+                      validar_finalizacion_nav2(
+                          exito_nav2=(
+                              registro["exito_confirmado"] is True
+                          ),
+                          cancelacion_solicitada=(motivo is not None),
+                          stop_confirmado=(
+                              stop_confirmado is True
+                              and self.modo == "STOP"
+                              and self.estado_fresco()
+                          ),
+                          velocidad_lineal=(
+                              self.odom.twist.twist.linear.x
+                              if self.odom is not None else None
+                          ),
+                          velocidad_angular=(
+                              self.odom.twist.twist.angular.z
+                              if self.odom is not None else None
+                          ),
+                          antiguedad_odom=(
+                              time.monotonic() - self.t_odom
+                              if self.odom is not None else None
+                          ),
+                      ).estado
+                  )
                 return
 
+        self.publicar_estado_nav2("NO_CONFIRMADO")
         print("RESULTADO_NAV2: NO_CONFIRMADO")
         print("EXITO_CONFIRMADO: False")
 

@@ -1,0 +1,5 @@
+archivo,clase,muestras,corte_70,corte_85,entrenamiento,validacion,prueba
+105.mat,inner_race,121265,84885,103075,81,16,16
+118.mat,ball,122571,85799,104185,82,16,16
+130.mat,outer_race,121991,85393,103692,82,16,16
+97.mat,normal,243938,170756,207347,165,34,34

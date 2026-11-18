@@ -1,0 +1,68 @@
+==========================================
+PASO 274 - DIAGNOSTICO DEL ABORTED NAV2
+==========================================
+
+=== 1. TRANSFORMACION MAP -> BASE ===
+[INFO] [1794368790.163897600] [tf2_echo]: Waiting for transform map ->  base_footprint: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+At time 207.323000000
+- Translation: [1.202, -1.218, -0.000]
+- Rotation: in Quaternion (xyzw) [-0.000, 0.000, -0.035, 0.999]
+- Rotation: in RPY (radian) [-0.000, 0.000, -0.070]
+- Rotation: in RPY (degree) [-0.008, 0.011, -4.019]
+- Matrix:
+  0.998  0.070  0.000  1.202
+ -0.070  0.998  0.000 -1.218
+ -0.000 -0.000  1.000 -0.000
+  0.000  0.000  0.000  1.000
+At time 208.275000000
+- Translation: [1.202, -1.218, -0.000]
+- Rotation: in Quaternion (xyzw) [-0.000, 0.000, -0.035, 0.999]
+- Rotation: in RPY (radian) [-0.000, 0.000, -0.070]
+- Rotation: in RPY (degree) [-0.008, 0.011, -4.016]
+- Matrix:
+  0.998  0.070  0.000  1.202
+ -0.070  0.998  0.000 -1.218
+ -0.000 -0.000  1.000 -0.000
+  0.000  0.000  0.000  1.000
+At time 209.227000000
+
+=== 2. TRANSFORMACION MAP -> BASE_LINK ===
+[INFO] [1794368794.609914424] [tf2_echo]: Waiting for transform map ->  base_link: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[INFO] [1794368796.574904982] [tf2_echo]: Waiting for transform map ->  base_link: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+At time 212.627000000
+- Translation: [1.202, -1.218, 0.010]
+- Rotation: in Quaternion (xyzw) [-0.000, 0.000, -0.035, 0.999]
+- Rotation: in RPY (radian) [-0.000, 0.000, -0.070]
+- Rotation: in RPY (degree) [-0.008, 0.011, -4.003]
+- Matrix:
+  0.998  0.070  0.000  1.202
+ -0.070  0.998  0.000 -1.218
+ -0.000 -0.000  1.000  0.010
+  0.000  0.000  0.000  1.000
+At time 213.579000000
+- Translation: [1.202, -1.218, 0.010]
+- Rotation: in Quaternion (xyzw) [-0.000, 0.000, -0.035, 0.999]
+- Rotation: in RPY (radian) [-0.000, 0.000, -0.070]
+- Rotation: in RPY (degree) [-0.008, 0.011, -4.000]
+- Matrix:
+  0.998  0.070  0.000  1.202
+ -0.070  0.998  0.000 -1.218
+ -0.000 -0.000  1.000  0.010
+  0.000  0.000  0.000  1.000
+
+=== 3. CONFIGURACION DEL PLANIFICADOR ===
+Boolean value is: False
+Double value is: 0.5
+
+=== 4. ESTADO DEL COSTMAP GLOBAL ===
+active [3]
+
+=== 5. ESTADO DE LA SIMULACION ===
+12982 gzserver --verbose -s libgazebo_ros_init.so -s libgazebo_ros_factory.so mundos/planta_bombeo_agv.world
+12983 gzclient --verbose -s libgazebo_ros_init.so -s libgazebo_ros_factory.so mundos/planta_bombeo_agv.world
+
+=== 6. SEGURIDAD ===
+data: STOP
+---
+
+=== FIN PASO 274 ===

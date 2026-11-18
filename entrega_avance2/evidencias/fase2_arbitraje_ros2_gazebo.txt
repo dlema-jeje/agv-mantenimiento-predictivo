@@ -1,0 +1,71 @@
+============================================
+PASO 262 - ARBITRAJE REAL EN ROS 2 Y GAZEBO
+============================================
+
+=== 1. NODO DEL ARBITRO ===
+/arbitro_velocidades_agv
+/turtlebot3_diff_drive
+
+=== 2. ESTADO DEL ARBITRO ===
+data: STOP
+---
+
+=== 3. PUBLICADORES DE /cmd_vel ===
+Type: geometry_msgs/msg/Twist
+
+Publisher count: 1
+
+Node name: arbitro_velocidades_agv
+Node namespace: /
+Topic type: geometry_msgs/msg/Twist
+Endpoint type: PUBLISHER
+GID: 01.0f.c2.7e.47.30.52.53.00.00.00.00.00.00.11.03.00.00.00.00.00.00.00.00
+QoS profile:
+  Reliability: RELIABLE
+  History (Depth): UNKNOWN
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+Subscription count: 1
+
+Node name: turtlebot3_diff_drive
+Node namespace: /
+Topic type: geometry_msgs/msg/Twist
+Endpoint type: SUBSCRIPTION
+GID: 01.0f.c2.7e.46.09.86.f6.00.00.00.00.00.00.68.04.00.00.00.00.00.00.00.00
+QoS profile:
+  Reliability: RELIABLE
+  History (Depth): UNKNOWN
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+
+=== 4. VELOCIDAD ENVIADA AL ROBOT ===
+linear:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+angular:
+  x: 0.0
+  y: 0.0
+  z: 0.0
+---
+
+=== 5. VELOCIDAD REAL EN ODOMETRIA ===
+linear:
+  x: -0.00014360471014174812
+  y: -3.850118242314844e-05
+  z: 0.0
+angular:
+  x: 0.0
+  y: 0.0
+  z: -0.00011421582872644874
+---
+
+=== FIN PASO 262 ===

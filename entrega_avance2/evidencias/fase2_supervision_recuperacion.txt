@@ -1,0 +1,58 @@
+========================================
+FASE 2 - SUPERVISION Y RECUPERACION
+========================================
+
+1. ESTADO INICIAL
+Estado: ESPERANDO_PREACOPLE
+Reintentos: 0
+
+2. PREACOPLAMIENTO NO CONFIRMADO
+Resultado: EstadoAcoplamiento(estado='ESPERANDO_PREACOPLE', reintentos=0, completado=False, motivo='PREACOPLAMIENTO_NO_CONFIRMADO')
+Estado: ESPERANDO_PREACOPLE
+
+3. PREACOPLAMIENTO CONFIRMADO
+Resultado: EstadoAcoplamiento(estado='ACOPLE_DIFUSO', reintentos=0, completado=False, motivo='PREACOPLAMIENTO_CONFIRMADO')
+Estado: ACOPLE_DIFUSO
+
+4. TOLERANCIAS FINALES
+Distancia máxima: ±0.01 m
+Ángulo máximo: ±5 grados
+Permanencia requerida: 1.0 s
+Interfaz de evaluación: (*, error_distancia, error_angular, sensores_validos, seguridad_confirmada, ahora=None)
+
+5. RECUPERACION 1
+Resultado: EstadoAcoplamiento(estado='RECUPERACION', reintentos=1, completado=False, motivo='SENSOR_INVALIDO')
+Estado: RECUPERACION
+Reintentos: 1
+
+6. RETORNO CONFIRMADO
+Resultado: EstadoAcoplamiento(estado='ESPERANDO_PREACOPLE', reintentos=1, completado=False, motivo='LISTO_PARA_REINTENTAR')
+Estado: ESPERANDO_PREACOPLE
+
+7. NUEVO PREACOPLAMIENTO
+Resultado: EstadoAcoplamiento(estado='ACOPLE_DIFUSO', reintentos=1, completado=False, motivo='PREACOPLAMIENTO_CONFIRMADO')
+Estado: ACOPLE_DIFUSO
+
+8. RECUPERACION 2
+Resultado: EstadoAcoplamiento(estado='RECUPERACION', reintentos=2, completado=False, motivo='LECTURA_INVALIDA')
+Estado: RECUPERACION
+Reintentos: 2
+
+9. SEGUNDO RETORNO CONFIRMADO
+Resultado: EstadoAcoplamiento(estado='ESPERANDO_PREACOPLE', reintentos=2, completado=False, motivo='LISTO_PARA_REINTENTAR')
+Estado: ESPERANDO_PREACOPLE
+
+10. TERCER FALLO
+Resultado: EstadoAcoplamiento(estado='FALLO', reintentos=2, completado=False, motivo='MAXIMO_REINTENTOS_AGOTADO')
+Estado: FALLO
+Reintentos: 2
+
+11. SEGURIDAD DEL ARBITRO
+Arbitro restringido a STOP: True
+
+12. RESULTADO GENERAL
+Estado final: FALLO
+Nodos ROS iniciados: NO
+Comandos de velocidad publicados: NO
+Robot movido: NO
+========================================

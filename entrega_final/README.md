@@ -115,3 +115,17 @@ El informe usa nueve referencias técnicas y deja el campo de integrantes
 editable en `informe.tex`. La lista oficial de bibliografía de la asignatura
 no estaba incluida para cotejar cuáles referencias cuentan como bibliografía
 del curso.
+
+### Abrir el repositorio desde el bundle
+
+El paquete ZIP se puede descomprimir para consultar el código. Para conservar
+historial y etiquetas, clonar el bundle desde la carpeta de descargas:
+
+```bash
+git clone -b avance3-final Repositorio_Avance_3.bundle agv-avance3
+cd agv-avance3
+git show --no-patch final
+```
+
+Para editar integrantes y regenerar el informe en un entorno con IEEEtran,
+ejecutar dos veces `pdflatex informe.tex` desde `entrega_final/`.

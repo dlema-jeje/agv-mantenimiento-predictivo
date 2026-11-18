@@ -52,7 +52,9 @@ class Inspector(Node):
         p = msg.pose.pose.position
         q = msg.pose.pose.orientation
         yaw = math.atan2(2 * (q.w*q.z + q.x*q.y), 1 - 2 * (q.y*q.y + q.z*q.z))
-        self.odom = p.x, p.y, yaw, time.monotonic()
+        sello = msg.header.stamp
+        tiempo_sim = sello.sec + sello.nanosec * 1e-9
+        self.odom = p.x, p.y, yaw, time.monotonic(), tiempo_sim
 
     def recibir_rango(self, msg, lado):
         valor = msg.range
@@ -116,10 +118,12 @@ class Inspector(Node):
             if x <= 0.51:
                 self.mover()
                 return
-            if abs(yaw) > 0.27:
-                break
-            self.mover(-0.11, max(-0.3, min(0.3, -1.5*yaw)))
-        raise RuntimeError("No se verificó el retroceso al pasillo.")
+            # Mantener componente hacia el pasillo mientras se corrige el rumbo.
+            giro = max(-0.7, min(0.7, -2.0 * yaw))
+            velocidad = -0.11 if abs(yaw) < 0.55 else 0.
+            self.mover(velocidad, giro)
+        x, y, yaw = self.pose()
+        raise RuntimeError(f"Retroceso agotado en x={x:.3f}, y={y:.3f}, yaw={yaw:.3f}.")
 
     def acoplar(self, estacion):
         objetivo_y = self.objetivos[estacion]
@@ -131,8 +135,8 @@ class Inspector(Node):
             if abs(y - objetivo_y) > 0.03 or abs(yaw) > math.radians(10):
                 raise RuntimeError(f"Preacople fuera de tolerancia en {estacion}")
             secuencia.iniciar(True)
-            inicio = time.monotonic()
-            limite = inicio + 28
+            inicio_sim = self.odom[4]
+            limite = time.monotonic() + 28
             while rclpy.ok() and time.monotonic() < limite:
                 self.avanzar_callbacks()
                 ahora = time.monotonic()
@@ -144,12 +148,14 @@ class Inspector(Node):
                 et = math.atan((fi[0]-fd[0])/0.20) if validos else math.nan
                 estado = secuencia.actualizar(error_distancia=ed, error_angular=et,
                                              sensores_validos=validos, seguridad_confirmada=True,
-                                             ahora=ahora)
+                                             ahora=self.odom[4])
                 if estado.completado:
                     self.mover()
+                    x, y, yaw = self.pose()
                     return {"ed_m": ed, "et_deg": math.degrees(et),
-                            "error_lateral_m": self.pose()[1] - objetivo_y,
-                            "acople_s": ahora - inicio, "reintentos": intento}
+                            "x_m": x, "y_m": y, "yaw_deg": math.degrees(yaw),
+                            "error_lateral_m": y - objetivo_y,
+                            "acople_s": self.odom[4] - inicio_sim, "reintentos": intento}
                 if estado.estado != "ACOPLE_DIFUSO":
                     break
                 if estado.motivo == "CONFIRMANDO_TOLERANCIA":

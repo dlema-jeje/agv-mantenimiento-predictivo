@@ -69,9 +69,9 @@ def leer_estados(ruta):
     if set(datos) != set(ESTACIONES): raise ValueError('Se requieren exactamente E1..E5')
     return datos
 
-def ordenar(estados, matriz):
-    pendientes = set(ESTACIONES)
-    actual = 'Base'
+def ordenar(estados, matriz, origen='Base', estaciones=ESTACIONES):
+    pendientes = set(estaciones)
+    actual = origen
     salida = []
     while pendientes:
         opciones = []

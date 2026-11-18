@@ -105,3 +105,9 @@ utilizado en el desarrollo, que deben adaptarse en otros equipos.
 - El retorno automático a la base queda pendiente.
 - Los registros CWRU no fueron medidos físicamente por el AGV.
 - No se ha implementado todavía un clasificador automático de fallas.
+
+## Avance 3 — MLP e integración
+
+Véase [la guía de entrega final](entrega_final/README.md) para entrenar las dos
+arquitecturas, verificar la extracción de características, lanzar las tres rondas
+y consultar el alcance de la evidencia.

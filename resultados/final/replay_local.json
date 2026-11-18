@@ -1,0 +1,155 @@
+{
+  "modo": "replay_local",
+  "exactitud": 1.0,
+  "rondas": [
+    {
+      "ronda": 1,
+      "plan_inicial": [
+        "E3",
+        "E4",
+        "E1",
+        "E2",
+        "E5"
+      ],
+      "prioridad_inicial": [
+        2,
+        3,
+        3,
+        4,
+        4
+      ],
+      "visitas": [
+        {
+          "estacion": "E3",
+          "clase": "normal",
+          "indice": 3,
+          "confianza": 0.9011642336845398
+        },
+        {
+          "estacion": "E4",
+          "clase": "normal",
+          "indice": 4,
+          "confianza": 0.85268634557724
+        },
+        {
+          "estacion": "E1",
+          "clase": "normal",
+          "indice": 1,
+          "confianza": 0.8672866225242615
+        },
+        {
+          "estacion": "E2",
+          "clase": "inner_race",
+          "indice": 9,
+          "confianza": 0.9999316930770874
+        },
+        {
+          "estacion": "E5",
+          "clase": "normal",
+          "indice": 5,
+          "confianza": 0.7837329506874084
+        }
+      ]
+    },
+    {
+      "ronda": 2,
+      "plan_inicial": [
+        "E2",
+        "E3",
+        "E4",
+        "E1",
+        "E5"
+      ],
+      "prioridad_inicial": [
+        1,
+        3,
+        3,
+        3,
+        4
+      ],
+      "visitas": [
+        {
+          "estacion": "E2",
+          "clase": "normal",
+          "indice": 3,
+          "confianza": 0.9011642336845398
+        },
+        {
+          "estacion": "E3",
+          "clase": "normal",
+          "indice": 4,
+          "confianza": 0.85268634557724
+        },
+        {
+          "estacion": "E4",
+          "clase": "normal",
+          "indice": 5,
+          "confianza": 0.7837329506874084
+        },
+        {
+          "estacion": "E1",
+          "clase": "normal",
+          "indice": 2,
+          "confianza": 0.8783714175224304
+        },
+        {
+          "estacion": "E5",
+          "clase": "ball",
+          "indice": 45,
+          "confianza": 0.9167685508728027
+        }
+      ]
+    },
+    {
+      "ronda": 3,
+      "plan_inicial": [
+        "E5",
+        "E4",
+        "E3",
+        "E1",
+        "E2"
+      ],
+      "prioridad_inicial": [
+        1,
+        3,
+        3,
+        3,
+        4
+      ],
+      "visitas": [
+        {
+          "estacion": "E5",
+          "clase": "outer_race",
+          "indice": 30,
+          "confianza": 0.9999912977218628
+        },
+        {
+          "estacion": "E4",
+          "clase": "normal",
+          "indice": 6,
+          "confianza": 0.8181846141815186
+        },
+        {
+          "estacion": "E3",
+          "clase": "normal",
+          "indice": 5,
+          "confianza": 0.7837329506874084
+        },
+        {
+          "estacion": "E1",
+          "clase": "normal",
+          "indice": 3,
+          "confianza": 0.9011642336845398
+        },
+        {
+          "estacion": "E2",
+          "clase": "normal",
+          "indice": 4,
+          "confianza": 0.85268634557724
+        }
+      ]
+    }
+  ],
+  "diferencia_max_scipy_pct": 1.2155793005270004e-13,
+  "diferencia_max_keras": 1.1920928955078125e-07
+}

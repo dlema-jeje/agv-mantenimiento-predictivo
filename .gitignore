@@ -58,3 +58,8 @@ __pycache__/
 
 # Enlaces locales a datos CWRU
 datos/cwru_entrenamiento/
+
+# Caché y ejecuciones locales del Avance 3
+datos/cwru_original/
+.venv-final/
+resultados/final/gazebo*.jsonl

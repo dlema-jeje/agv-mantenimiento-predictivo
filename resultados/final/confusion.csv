@@ -1,0 +1,5 @@
+real,normal,inner_race,outer_race,ball
+normal,7,0,0,0
+inner_race,0,16,0,0
+outer_race,0,0,16,0
+ball,0,0,0,16

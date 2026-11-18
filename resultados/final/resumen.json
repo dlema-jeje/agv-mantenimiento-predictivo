@@ -1,0 +1,24 @@
+{
+  "arquitecturas": {
+    "1": {
+      "parametros": 452,
+      "epocas": 100,
+      "val_accuracy": 0.8909090909090909,
+      "val_loss": 0.20106196403503418
+    },
+    "2": {
+      "parametros": 916,
+      "epocas": 100,
+      "val_accuracy": 0.9818181818181818,
+      "val_loss": 0.09864085167646408
+    }
+  },
+  "elegido": 2,
+  "exactitud": 1.0,
+  "muestras": {
+    "train": 285,
+    "val": 55,
+    "test": 55
+  },
+  "tensorflow": "2.18.1"
+}

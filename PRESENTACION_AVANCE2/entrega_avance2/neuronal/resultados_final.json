@@ -1,0 +1,24 @@
+{
+  "division_temporal": [
+    0.7,
+    0.15,
+    0.15
+  ],
+  "ventana_muestras": 2048,
+  "solapamiento": 0.5,
+  "escalador_ajustado_solo_entrenamiento": true,
+  "registros": [
+    "97.mat",
+    "105.mat",
+    "118.mat",
+    "130.mat"
+  ],
+  "ventanas_por_conjunto": {
+    "entrenamiento": 410,
+    "validacion": 82,
+    "prueba": 82
+  },
+  "exactitud_validacion": 1.0,
+  "exactitud_prueba": 1.0,
+  "advertencia": "Evaluacion temporal dentro de los mismos registros; no equivale a generalizacion a registros independientes."
+}

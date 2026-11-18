@@ -1,0 +1,5 @@
+,falla_bola,falla_externa,falla_interna,normal
+falla_bola,16,0,0,0
+falla_externa,0,16,0,0
+falla_interna,0,0,16,0
+normal,0,0,0,34

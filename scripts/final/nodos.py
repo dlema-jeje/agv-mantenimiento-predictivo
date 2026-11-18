@@ -3,6 +3,7 @@ import argparse
 import json
 
 import rclpy
+from rclpy.executors import ExternalShutdownException
 from rclpy.node import Node
 from std_msgs.msg import String
 
@@ -58,7 +59,7 @@ if __name__ == "__main__":
     nodo = Acelerometro() if args.nodo == "acelerometro" else Diagnosticador()
     try:
         rclpy.spin(nodo)
-    except KeyboardInterrupt:
+    except (KeyboardInterrupt, ExternalShutdownException):
         pass
     finally:
         nodo.destroy_node()

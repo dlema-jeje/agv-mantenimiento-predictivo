@@ -1,4 +1,5 @@
 # MEC451 | Avance 3 — MLP de diagnóstico e integración
+\n[Guía por fases, compilación y video](COMPILACION_Y_VIDEO.md).
 
 Continuación de la rama `avance2-desarrollo` en el commit `d0fc301`.
 Se conservan el mundo de cinco máquinas, los objetivos del tablero, la matriz
@@ -29,6 +30,10 @@ propio recorrido en Gazebo y conserva el bloqueo de los scripts anteriores.
   destino E3 → E2 → E5. Máximos absolutos 6,55 mm longitudinal y 4,76° angular.
   Tiempo medio del intento exitoso 17,94 s en reloj simulado y 5 reintentos.
   Registro: gazebo_rondas_verificado.jsonl, resumen y trayectoria en resultados/final.
+
+La misión se repitió tras el ajuste de preacople. Registró 15 visitas y 3
+reintentos con error máximo de 8,84 mm y 4,84°. Consultar
+resultados/final/gazebo_rondas_revision.jsonl y gazebo_revision_resumen.json.
 
 ## Ejecutar
 

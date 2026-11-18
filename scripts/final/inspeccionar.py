@@ -125,49 +125,91 @@ class Inspector(Node):
         x, y, yaw = self.pose()
         raise RuntimeError(f"Retroceso agotado en x={x:.3f}, y={y:.3f}, yaw={yaw:.3f}.")
 
+    def intento_acople(self, secuencia, objetivo_y, limite_sim=None):
+        inicio_sim = self.odom[4]
+        limite = time.monotonic() + 75
+        perdida_desde = None
+        realineado = False
+        realineando = False
+        while (rclpy.ok() and time.monotonic() < limite and
+               (limite_sim is None or self.odom[4] - inicio_sim < limite_sim)):
+            self.avanzar_callbacks()
+            ahora = time.monotonic()
+            x, y, yaw = self.pose()
+            zona_preacople = 0.72 <= x <= 0.84 and abs(y - objetivo_y) <= 0.06
+            if zona_preacople and math.radians(8) < abs(yaw) <= math.radians(23):
+                realineando = True
+            if realineando and zona_preacople and abs(yaw) > math.radians(2.5):
+                self.mover(w=max(-0.45, min(0.45, -2*yaw)))
+                realineado = True
+                secuencia.inicio_tolerancia = None
+                continue
+            realineando = False
+            fi = self.rangos.get("fi")
+            fd = self.rangos.get("fd")
+            validos = fi is not None and fd is not None and ahora - min(fi[1], fd[1]) < 0.35
+            if not validos:
+                secuencia.inicio_tolerancia = None
+                if perdida_desde is None:
+                    perdida_desde = self.odom[4]
+                perdida = self.odom[4] - perdida_desde
+                # En la zona conocida de preacople se puede recuperar la placa
+                # girando en el sitio, sin avance y con odometría vigente.
+                puede_girar = zona_preacople and math.radians(6) < abs(yaw) <= math.radians(23)
+                if perdida >= 0.25 and puede_girar:
+                    self.mover(w=max(-0.45, min(0.45, -2*yaw)))
+                    realineado = True
+                else:
+                    self.mover()
+                if perdida >= 2.5:
+                    self.mover()
+                    secuencia.solicitar_recuperacion("RANGOS_INVALIDOS")
+                    return None, "RANGOS_INVALIDOS"
+                continue
+            perdida_desde = None
+            ed = (fi[0] + fd[0])/2 - 0.10
+            et = math.atan((fi[0] - fd[0])/0.20)
+            estado = secuencia.actualizar(error_distancia=ed, error_angular=et,
+                                         sensores_validos=validos, seguridad_confirmada=True,
+                                         ahora=self.odom[4])
+            if estado.completado:
+                self.mover()
+                x, y, yaw = self.pose()
+                return {"ed_m": ed, "et_deg": math.degrees(et),
+                        "x_m": x, "y_m": y, "yaw_deg": math.degrees(yaw),
+                        "error_lateral_m": y - objetivo_y,
+                        "acople_s": self.odom[4] - inicio_sim,
+                        "realineacion_preacople": realineado, "reintentos": secuencia.reintentos}, estado.motivo
+            if estado.estado != "ACOPLE_DIFUSO":
+                self.mover()
+                return None, estado.motivo
+            if estado.motivo == "CONFIRMANDO_TOLERANCIA":
+                self.mover()
+                continue
+            self.control.input["ed"] = ed
+            self.control.input["et"] = math.degrees(et)
+            self.control.compute()
+            self.mover(self.control.output["v"], self.control.output["w"])
+        self.mover()
+        if secuencia.estado == "ACOPLE_DIFUSO":
+            secuencia.solicitar_recuperacion("TIEMPO_AGOTADO")
+        return None, "TIEMPO_AGOTADO"
+
     def acoplar(self, estacion):
         objetivo_y = self.objetivos[estacion]
         secuencia = SecuenciaAcoplamiento()
-        for intento in range(3):
+        for intento in range(1, 4):
             self.navegar((0.50, objetivo_y), tolerancia=0.018)
             self.navegar((0.76, objetivo_y), 0., tolerancia=0.014)
             x, y, yaw = self.pose()
             if abs(y - objetivo_y) > 0.03 or abs(yaw) > math.radians(10):
                 raise RuntimeError(f"Preacople fuera de tolerancia en {estacion}")
             secuencia.iniciar(True)
-            inicio_sim = self.odom[4]
-            limite = time.monotonic() + 28
-            while rclpy.ok() and time.monotonic() < limite:
-                self.avanzar_callbacks()
-                ahora = time.monotonic()
-                self.pose()
-                fi = self.rangos.get("fi")
-                fd = self.rangos.get("fd")
-                validos = fi is not None and fd is not None and ahora - min(fi[1], fd[1]) < 0.35
-                ed = (fi[0]+fd[0])/2 - 0.10 if validos else math.nan
-                et = math.atan((fi[0]-fd[0])/0.20) if validos else math.nan
-                estado = secuencia.actualizar(error_distancia=ed, error_angular=et,
-                                             sensores_validos=validos, seguridad_confirmada=True,
-                                             ahora=self.odom[4])
-                if estado.completado:
-                    self.mover()
-                    x, y, yaw = self.pose()
-                    return {"ed_m": ed, "et_deg": math.degrees(et),
-                            "x_m": x, "y_m": y, "yaw_deg": math.degrees(yaw),
-                            "error_lateral_m": y - objetivo_y,
-                            "acople_s": self.odom[4] - inicio_sim, "reintentos": intento}
-                if estado.estado != "ACOPLE_DIFUSO":
-                    break
-                if estado.motivo == "CONFIRMANDO_TOLERANCIA":
-                    self.mover()
-                    continue
-                self.control.input["ed"] = ed
-                self.control.input["et"] = math.degrees(et)
-                self.control.compute()
-                self.mover(self.control.output["v"], self.control.output["w"])
-            self.mover()
-            if secuencia.estado == "ACOPLE_DIFUSO":
-                secuencia.solicitar_recuperacion("TIEMPO_AGOTADO")
+            metricas, motivo = self.intento_acople(secuencia, objetivo_y, limite_sim=60)
+            if metricas is not None:
+                return metricas
+            self.guardar({"tipo": "intento_fallido", "estacion": estacion,
+                          "intento": intento, "motivo": motivo, "pose": self.pose()})
             if secuencia.estado == "FALLO":
                 break
             self.retirar()

@@ -62,4 +62,6 @@ datos/cwru_entrenamiento/
 # Caché y ejecuciones locales del Avance 3
 datos/cwru_original/
 .venv-final/
+.venv-ml/
+resultados/reproduccion/
 resultados/final/gazebo*.jsonl

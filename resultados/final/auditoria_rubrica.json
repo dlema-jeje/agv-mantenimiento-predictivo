@@ -1,0 +1,71 @@
+{
+  "parametros": 916,
+  "pesos_float32_bytes": 3664,
+  "historiales": {
+    "1": {
+      "epocas": 100,
+      "mejor_epoca_habilitada": 100,
+      "val_loss": 0.2010619491338729,
+      "val_accuracy": 0.8909090757369995
+    },
+    "2": {
+      "epocas": 100,
+      "mejor_epoca_habilitada": 100,
+      "val_loss": 0.098640851676464,
+      "val_accuracy": 0.9818181991577148
+    }
+  },
+  "exactitud": 1.0,
+  "matriz_confusion": [
+    [
+      7,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      16,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      16,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      16
+    ]
+  ],
+  "paridad_scipy_pct": 1.2155793005270004e-13,
+  "gazebo_rondas_archivadas": {
+    "rondas": 3,
+    "visitas": 15,
+    "primeras": [
+      "E3",
+      "E2",
+      "E5"
+    ],
+    "max_ed_m": 0.008835309049974871,
+    "max_et_deg": 4.838308216361944,
+    "max_lateral_m": 0.04371268729446931,
+    "acople_promedio_s": 19.985200000000003,
+    "reintentos": 3
+  },
+  "gazebo_escenarios": {
+    "exitos_por_escenario": {
+      "frontal": 5,
+      "desalineacion_15": 5,
+      "error_supervisor": 5
+    },
+    "exitos": 15,
+    "intentos": 15,
+    "tasa_pct": 100.0,
+    "cumple_90_pct": true
+  }
+}

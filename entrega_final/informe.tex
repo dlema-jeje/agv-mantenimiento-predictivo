@@ -1,10 +1,11 @@
 \documentclass[conference,letterpaper]{IEEEtran}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{amsmath,graphicx,booktabs,array,url}
+\usepackage{amsmath,graphicx,booktabs,array,url,listings}
 \graphicspath{{../resultados/final/}{../resultados/avance1/vibraciones/}{../resultados/avance2/diseno/}{../datos/}{../matlab/}}
 \renewcommand{\abstractname}{Resumen}
 \renewcommand{\refname}{Referencias}
+\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true,columns=fullflexible,keepspaces=true}
 \newcommand{\fig}[2]{\begin{center}\includegraphics[width=\columnwidth]{#1}\\{\small #2}\end{center}}
 \title{Vehículo autoguiado para mantenimiento predictivo con acople difuso y diagnóstico de rodamientos}
 \author{\IEEEauthorblockN{Integrantes \underline{\hspace{5cm}}}
@@ -29,7 +30,7 @@ Las cinco placas de acople se distribuyen sobre el eje lateral de una planta de 
 La tabla de distancias proviene de MATLAB. El lanzamiento U3S7 usa un seguidor odométrico para el pasillo conocido. El historial del proyecto registra dificultades de aproximación con Nav2/DWB. El trabajo actual corresponde a simulación, con el despliegue real en ESP32 previsto para la Unidad 4.
 \clearpage
 
-\section{Marco teórico}
+\section{Fase 1. Arquitectura y marco teórico}
 \subsection{Vibración y fallas de rodamiento}
 Una discontinuidad localizada excita la estructura cuando pasa el siguiente elemento rodante. El acelerómetro mide impactos amortiguados superpuestos a la componente de giro, al ruido y a otros modos mecánicos. La cadencia y la modulación varían con la ubicación del daño. Los descriptores temporales condensan escala e impulsividad y las bandas de energía complementan la información sobre frecuencia \cite{randall,smith}.
 
@@ -41,6 +42,11 @@ En un desbalance ideal domina la componente de giro 1×. Una sinusoide tiene cur
 Una MLP aplica transformaciones densas con activaciones no lineales a entradas de longitud fija. RMS, pico y desviación recogen escala. Asimetría, curtosis y cresta recogen forma. Las energías por banda separan distribución espectral. Dada esta extracción previa, la red necesita unos cientos de coeficientes.
 
 Una CNN 1D sobre la señal cruda sería pertinente si las formas transitorias o la periodicidad temporal aportaran información perdida al resumir cada ventana. El entrenamiento debería incluir más registros independientes y cargas y validar el presupuesto de cómputo \cite{lecun}.
+
+\subsection{Comprobar arquitectura}
+\begin{lstlisting}
+python scripts/final/auditar_final.py
+\end{lstlisting}
 \newpage
 \subsection{Geometría y control del acople}
 A partir de las dos distancias filtradas a la placa se calculan:
@@ -83,7 +89,7 @@ Sea $x[n]$ la señal, $m_k$ su momento central de orden $k$ con divisor $N$ y $p
 El escalador ajusta media y escala de cada descriptor con 285 ventanas de entrenamiento. Los parámetros se congelan al transformar validación, prueba y las ventanas que consume ROS~2. Se exportan junto a los pesos para conservar el orden exacto de las nueve entradas.
 \clearpage
 
-\section{Entrenamiento}
+\section{Fase 2. Entrenamiento y validación}
 Se comparan una capa densa de 32 neuronas y dos capas densas de 32 y 16. Ambas redes usan ReLU, un Dropout de 0,20 tras la primera capa y cuatro salidas Softmax. La red elegida tiene $9\cdot32+32+32\cdot16+16+16\cdot4+4=916$ parámetros, equivalentes a 3664 bytes de pesos y sesgos en 32 bits. También se debe presupuestar la memoria de la FFT y del búfer al migrar al ESP32.
 
 \subsection{Protocolo de selección}
@@ -99,16 +105,23 @@ Los modelos usan TensorFlow/Keras \cite{tensorflow}, Adam \cite{adam} con tasa $
 \end{tabular}\\
 Tabla II. Comparación sobre el conjunto de validación.
 \end{center}
-El criterio primario de selección es la menor pérdida de validación. La mejora de 9,09 puntos porcentuales y la reducción aproximada de 51\,\% de pérdida justifican la segunda capa en este conjunto. El número de parámetros permite considerar un despliegue en el borde.
+Un segundo entrenamiento en un entorno aislado reprodujo exactamente el resumen de métricas. El criterio primario de selección es la menor pérdida de validación. La mejora de 9,09 puntos porcentuales y la reducción aproximada de 51\,\% de pérdida justifican la segunda capa en este conjunto. El número de parámetros permite considerar un despliegue en el borde.
 \newpage
 \fig{curvas.png}{Fig. 4. Pérdida y exactitud a lo largo de las épocas.}
 \subsection{Diagnóstico del ajuste}
 Ambas curvas de pérdida descienden a medida que la red aprende los descriptores. La exactitud de validación de la segunda variante se aproxima al techo al final. Hay fluctuaciones en entrenamiento coherentes con el muestreo de lotes y el Dropout. La validación no muestra una divergencia sostenida de pérdida en el horizonte analizado. La segunda variante muestra buen ajuste en los tramos observados. Variaciones de carga, severidad, sensores y máquinas requieren una prueba adicional antes de estandarizar conclusiones operativas.
 
 El Dropout está activo durante entrenamiento e inactivo en validación e inferencia. La pérdida se mide sobre la probabilidad de la clase real y puede variar aun cuando la exactitud permanezca igual. La exactitud describe decisiones discretas y la pérdida aporta señal adicional durante la selección.
+
+\subsection{Reproducir entrenamiento}
+\begin{lstlisting}
+python -m pip install -r scripts/final/requirements.txt
+python scripts/final/entrenar.py
+python scripts/final/verificar.py --keras
+\end{lstlisting}
 \clearpage
 
-\section{Resultados del diagnóstico}
+\section{Fase 3. Evaluación del diagnóstico}
 El conjunto de prueba se empleó después de seleccionar arquitectura. La exactitud fue 55/55, equivalente al 100\,\%, y supera la meta de 92\,\% dentro de esta partición. La matriz de confusión de 4 × 4 no presentó cruces. Precisión y sensibilidad fueron 1,00 para las cuatro clases. Los 7 ejemplos normales y los 16 de cada clase de falla tienen soporte desigual.
 
 \fig{confusion.png}{Fig. 5. Matriz de confusión, con clase real por fila.}
@@ -131,13 +144,31 @@ El archivo Keras conserva la red entrenada. ROS~2 carga las matrices de pesos y 
 \subsection{Contraste de características}
 Se seleccionaron cinco ventanas del conjunto de prueba con representación de las cuatro clases. Se contrastaron los 45 valores de salida con una referencia NumPy/SciPy que implementa la curtosis de Pearson y la desviación con $N-1$. El máximo error relativo fue $1{,}22\times10^{-13}$\,\%. El script MATLAB lee las mismas cinco ventanas, usa momentos poblacionales equivalentes a \texttt{kurtosis(x,1)} y \texttt{skewness(x,1)}, calcula \texttt{std(x,0)} y exporta los 45 errores relativos \cite{matlab}. La verificación directa en MATLAB queda pendiente.
 
+
+\subsection{Reproducir las cinco ventanas}
+\begin{lstlisting}
+python scripts/final/verificar.py
+matlab -batch "addpath('matlab/final'); verificar_caracteristicas"
+python scripts/final/auditar_final.py --matlab resultados/final/paridad_matlab.csv
+\end{lstlisting}
 \subsection{Interpretación}
 En la prueba registrada no hubo clases confundidas. Como hipótesis para una futura prueba, bola y pista interna podrían solaparse en amplitud e impulsividad si cambian carga, sensor o montaje. Validar esa hipótesis requiere registros independientes representativos de ambos defectos. La presente exactitud caracteriza una combinación fija de banco, carga y diámetro.
 \clearpage
 
-\section{Integración de los nodos}
+\section{Fase 3. Integración y simulación}
 El plan parte de Base en la primera ronda y de la última estación visitada en las rondas siguientes. Tras cada visita se actualiza el estado de prioridad con el diagnóstico y se recalcula el plan para pendientes. La regla de falla eleva una estación a prioridad 1. La matriz exportada desempata sin invocar MATLAB en línea.
 
+
+\subsection{Compilar y lanzar en Humble}
+\begin{lstlisting}
+source /opt/ros/humble/setup.bash
+export ROS_DOMAIN_ID=45 ROS_LOCALHOST_ONLY=1
+colcon build --base-paths ros2_ws/src
+source install/setup.bash
+ros2 launch agv_avance3 avance3.launch.py \
+  gui:=true registro:=rondas_video.jsonl
+python scripts/final/validar_gazebo.py rondas_video.jsonl
+\end{lstlisting}
 \subsection{Secuencia de la misión}
 La navegación final usa el pasillo conocido y la odometría para entrar centrada a cada estación. El emulador proyecta el LiDAR sobre dos bandas separadas 0,20 m. El inspector filtra rangos con $\alpha=0{,}3$, verifica vigencia, da paso al Mamdani y espera la confirmación geométrica sostenida. Tras un intento fallido puede volver al pasillo y reintentar. La adquisición se solicita al confirmar el acople.
 
@@ -179,10 +210,27 @@ La división temporal cumple la restricción de desunión de muestras. Ventanas 
 Las características espectrales añadidas reflejan el dominio de muestreo y los registros de laboratorio. Si cambia el muestreo, es necesario redefinir las bandas. La futura verificación en ESP32 debe registrar latencia de adquisición, extracción, normalización e inferencia. El tamaño reducido de la MLP es un indicador inicial de viabilidad y la FFT puede dominar el presupuesto de trabajo.
 
 \subsection{Validez del lazo de inspección}
-El replay verifica transporte, contrato de datos y reacción causal del orden de visita. El simulador añade cadencia de odometría, rayos LiDAR, contacto, ruido, reintentos y condiciones de parada. Comparar la tasa de acople con el umbral de 90\,\% requiere evidencia en los escenarios del enunciado, con cinco repeticiones en cada escenario. Los resultados numéricos históricos se conservan como antecedentes. En Gazebo se completaron las 15 visitas en el mismo orden del replay. El máximo error final fue 6,55 mm en distancia y 4,76 grados en ángulo. El máximo error lateral observado fue 2,78 cm. Se registraron 5 reintentos y 17,94 s simulados en promedio en el intento exitoso. El criterio longitudinal y angular se confirmó en las 15 visitas. La corrida corresponde al escenario nominal de tres rondas.
+El replay verifica transporte, contrato de datos y reacción causal del orden de visita. El simulador añade cadencia de odometría, rayos LiDAR, contacto, ruido, reintentos y condiciones de parada. El umbral de acople se analizó en ensayos separados de la misión nominal. Los resultados numéricos históricos se conservan como antecedentes. En Gazebo se completaron las 15 visitas en el mismo orden del replay. En la repetición con el código revisado, el máximo error final fue 8,84 mm y 4,84 grados. Se registraron tres reintentos sobre 15 visitas y 19,99 s simulados en promedio en el intento exitoso. La desviación lateral final máxima fue 4,37 cm. El criterio longitudinal y angular se confirmó en las 15 visitas. La corrida corresponde al escenario nominal de tres rondas.
 
 Para el Waffle se ajustó el parámetro de rampa de rueda del complemento de Gazebo a cero después de observar un retraso entre consigna de giro y odometría. La simulación conservó el control diferencial y los límites de velocidad del supervisor. El seguimiento por pasillo es específico del tablero conocido. Una planta dinámica requeriría detección de obstáculos y un planificador de movimiento capaz de replantear trayectorias con las nuevas restricciones.
-\newpage
+\subsection{Criterio de acople y reproducción}
+Cinco intentos por caso, con reinicio de pose en E1, ruido de rango habilitado y un intento por repetición. La base se colocó en $x=0{,}76$ m, a unos 0,51 m de la placa desde la línea de sensores. La primera prueba con espera de rangos y sin realineamiento obtuvo 11/15. A $15^\circ$, la geometría puede situar una proyección lateral fuera del borde de la placa. El ajuste limita el realineamiento por odometría a la zona de preacople, con velocidad lineal nula. El lote definitivo alcanzó 15/15 sin reintentos.
+\begin{center}\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule Escenario & Éxitos & $|e_d|$ mm & $|e_\theta|$ deg\\
+\midrule
+Frontal & 5/5 & 9,50 & 3,85\\
+Giro de $15^\circ$ & 5/5 & 5,99 & 4,20\\
+Residual $3$ cm / $10^\circ$ & 5/5 & 7,32 & 3,12\\
+\bottomrule
+\end{tabular}\\
+Tabla VI. Errores máximos por escenario.
+\end{center}
+\begin{lstlisting}
+ros2 launch agv_avance3 avance3.launch.py \
+  gui:=false ensayos:=true registro:=acople.jsonl
+python scripts/final/validar_ensayos.py acople.jsonl
+\end{lstlisting}
 \subsection{Trazabilidad de evidencia}
 \begin{center}
 \small
@@ -196,10 +244,10 @@ Replay ROS~2 & 15 diagnósticos y tres planes iniciales.\\
 Gazebo & 15 acoples y diagnósticos en tres rondas.\\
 \bottomrule
 \end{tabular}\\
-Tabla VI. Cobertura de las comprobaciones.
+Tabla VII. Cobertura de las comprobaciones.
 \end{center}
 
-\fig{gazebo_trayectoria.png}{Fig. 7. Tramo registrado de la trayectoria del robot en Gazebo.}
+\begin{center}\includegraphics[width=.78\columnwidth]{gazebo_trayectoria.png}\\{\small Fig. 7. Trayectoria de la primera misión completa en Gazebo.}\end{center}
 \subsection{Próxima extensión en ESP32}
 Los datos de un MPU6050 sobre prototipos con desbalance provendrán de un dominio mecánico distinto. Se necesitará un banco propio, particiones por sesión y análisis de la componente de giro 1×. En el microcontrolador, la reducción de precisión de los pesos requiere calibración y medición directa del impacto sobre exactitud y memoria. Se propone medir latencia extremo a extremo con FFT y adquisición incluidas.
 
@@ -213,6 +261,14 @@ La MLP con estructura 9--32--16--4 obtuvo menor pérdida de validación que la d
 El flujo ROS~2 procesó las quince visitas de replay. Tras confirmar pista interna en E2 y falla de bola en E5, el primer destino pasó de E3 a E2 y luego a E5. Esta prueba respalda la actualización de prioridades con la clase recibida por tópicos. Gazebo confirmó la misma evolución del orden inicial y registró las quince visitas. Se preparó el script para ejecutar el contraste directo en MATLAB.
 
 El modelo exportado conserva escalas y orden de entrada. La comparación de las probabilidades con el modelo de entrenamiento muestra que se puede desplegar el clasificador fuera del entorno TensorFlow sin alterar las decisiones observadas. El siguiente paso del proyecto estudiará el muestreo propio, la medida 1× y la latencia integral en ESP32.
+
+\subsection{Exportar video y compilar el informe}
+\begin{lstlisting}
+bash entrega_final/exportar_video.sh \
+  gazebo_bruto.mkv Video_Final.mp4
+(cd entrega_final && latexmk -pdf informe.tex)
+\end{lstlisting}
+La guía \texttt{COMPILACION\_Y\_VIDEO.md} contiene la instalación, los tópicos de inspección, el comando de captura X11 y la alternativa para Wayland o WSL. La edición final se limita a 180 s.
 \newpage
 \begin{thebibliography}{00}
 \bibitem{randall} R. B. Randall y J. Antoni, “Rolling element bearing diagnostics---A tutorial,” \emph{Mechanical Systems and Signal Processing}, vol. 25, n.º 2, pp. 485--520, 2011. doi: 10.1016/j.ymssp.2010.07.017.

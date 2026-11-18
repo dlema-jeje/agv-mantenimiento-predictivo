@@ -23,6 +23,7 @@ install(FILES
   "${repo}/scripts/final/rondas.py"
   "${repo}/scripts/final/nodos.py"
   "${repo}/scripts/final/inspeccionar.py"
+  "${repo}/scripts/final/ensayar_acople.py"
   "${repo}/scripts/final/spawn_waffle.py"
   DESTINATION "${dest}/scripts/final")
 ament_package()

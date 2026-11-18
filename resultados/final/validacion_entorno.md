@@ -21,3 +21,18 @@
 - Compilación con colcon y resolución de argumentos de
   ros2 launch agv_avance3 avance3.launch.py verificadas.
 - Suite del repositorio: 76 pruebas y 45 subpruebas aprobadas.
+
+## Auditoría de la rúbrica
+
+- Reentrenamiento independiente en TensorFlow CPU 2.18.1 y Python 3.10.
+  El resumen de entrenamiento coincidió byte por byte con el archivado.
+  Se volvió a comparar la salida de Keras con la inferencia de ROS 2.
+- Matriz de acople en Gazebo Classic. Frontal, 15° y residual de 3 cm/10°.
+  Se hicieron cinco intentos por caso en E1, sin reintentos. El registro
+  previo con espera de rangos obtuvo 11/15. Con realineamiento en el sitio
+  y el periodo de espera revisado se registraron 15/15.
+- El video se codificó en H.264/AAC y se comprobó con ffprobe. Se probó
+  el exportador de captura con 195 s de entrada y 170 s de salida.
+- Misión repetida tras la revisión del controlador, desde el paquete
+  compilado con colcon. Tres rondas, 15 visitas confirmadas, 3 reintentos
+  y orden inicial E3 → E2 → E5. Registro gazebo_rondas_revision.jsonl.

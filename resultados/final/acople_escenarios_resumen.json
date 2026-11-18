@@ -1,0 +1,11 @@
+{
+  "exitos_por_escenario": {
+    "frontal": 5,
+    "desalineacion_15": 5,
+    "error_supervisor": 5
+  },
+  "exitos": 15,
+  "intentos": 15,
+  "tasa_pct": 100.0,
+  "cumple_90_pct": true
+}

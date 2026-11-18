@@ -25,6 +25,10 @@ propio recorrido en Gazebo y conserva el bloqueo de los scripts anteriores.
 - Replay ROS 2 Humble: 15 diagnósticos por tópicos y primer destino E3 → E2 → E5
   entre rondas. El replay inyecta el disparo de acople y comprueba diagnóstico
   y ruta sin física. El registro `ros2_replay.json` contiene la evidencia.
+- Gazebo Classic 11.10.2 sin GUI: 3 rondas, 15 acoples confirmados y primer
+  destino E3 → E2 → E5. Máximos absolutos 6,55 mm longitudinal y 4,76° angular.
+  Tiempo medio del intento exitoso 17,94 s en reloj simulado y 5 reintentos.
+  Registro: gazebo_rondas_verificado.jsonl, resumen y trayectoria en resultados/final.
 
 ## Ejecutar
 
@@ -54,6 +58,15 @@ el Mamdani calibrado con rangos filtrados y dispara una ventana al confirmar
 priorizan las fallas. E2 presenta pista interna en ronda 1 y vuelve a normal
 en ronda 2. E5 presenta falla de bola en ronda 2 y pista externa en ronda 3.
 Una falla nueva solo se conoce al medir la estación correspondiente.
+
+El spawn ajusta a 0 la rampa de rueda del plugin de Gazebo del Waffle. En las
+pruebas de integración, la rampa original retrasó los giros y agotó el tiempo
+de navegación. La variante final conserva el modelo y el control diferencial,
+con límites de consigna en el inspector. Se aceleró el reloj de Gazebo para
+validar en modo sin GUI, con paso de física de 1 ms y tiempos de acople medidos
+en el reloj simulado de /odom. Para auditar el resultado archivado:
+
+    python scripts/final/validar_gazebo.py resultados/final/gazebo_rondas_verificado.jsonl
 
 ### Repetir el replay ROS 2
 
@@ -98,8 +111,7 @@ resultados MATLAB y falla si alguna característica excede la tolerancia.
 - `entrega_final/`: informe, fuente del informe y guía de defensa.
 - `firmware/`: alcance futuro de la Unidad 4.
 
-La guía de defensa identifica la demostración disponible y la validación
-pendiente. El video acompaña el paquete de entrega.
+La guía de defensa identifica las demostraciones verificadas y el contraste MATLAB pendiente. El video acompaña el paquete de entrega.
 
 ### Lanzamiento como paquete ROS 2
 

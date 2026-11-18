@@ -9,5 +9,5 @@
 | Validación | Corte temporal previo, normalización ajustada al entrenamiento y paridad en cinco ventanas. | ¿Por qué 100 % no prueba generalización? Los tramos proceden de los mismos registros y solo de 0 hp. |
 
 Mostrar la curva de validación, la matriz 4 × 4, los archivos de paridad y
-el replay ROS 2. Identificar las pruebas ejecutadas y el alcance de los
+el replay ROS 2 y el registro de 15 acoples en Gazebo. Identificar las pruebas ejecutadas y el alcance de los
 resultados antes de explicar los siguientes pasos de comprobación.

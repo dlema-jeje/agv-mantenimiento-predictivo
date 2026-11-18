@@ -20,15 +20,11 @@ def generate_launch_description():
         launch_arguments={"world": str(ROOT / "mundos/planta_bombeo_agv.world"),
                           "gui": LaunchConfiguration("gui")}.items(),
     )
-    spawn = ExecuteProcess(cmd=["ros2", "run", "gazebo_ros", "spawn_entity.py",
-                                "-entity", "agv_waffle", "-file", str(waffle),
-                                "-x", "-1.8", "-y", "0", "-z", "0.05", "-Y", "0"],
-                           output="screen")
-
     def python(archivo, *argumentos):
         return ExecuteProcess(cmd=["python3", str(ROOT / archivo), *argumentos],
                               output="screen", additional_env={"PYTHONUNBUFFERED": "1"})
 
+    spawn = python("scripts/final/spawn_waffle.py", "--modelo", str(waffle))
     inspector = python("scripts/final/inspeccionar.py", "--registro", LaunchConfiguration("registro"))
     return LaunchDescription([
         DeclareLaunchArgument("gui", default_value="true"),

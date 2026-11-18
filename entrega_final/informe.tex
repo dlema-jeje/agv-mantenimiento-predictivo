@@ -12,7 +12,7 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-Se implementó una red MLP para diagnosticar vibraciones en un vehículo de inspección de cinco estaciones. La entrada comprende nueve descriptores de ventanas CWRU de 2048 muestras a 12 kHz. La variante con 32 y 16 unidades ocultas logró 98,18\,\% en validación y 55 de 55 aciertos en prueba. En tres rondas de replay ROS~2, el primer destino cambió de E3 a E2 y luego a E5 tras el diagnóstico de falla de cada máquina. Se implementó el lanzamiento de la misión para Gazebo y se documenta el alcance de la evidencia.
+Se implementó una red MLP para diagnosticar vibraciones en un vehículo de inspección de cinco estaciones. La entrada comprende nueve descriptores de ventanas CWRU de 2048 muestras a 12 kHz. La variante con 32 y 16 unidades ocultas logró 98,18\,\% en validación y 55 de 55 aciertos en prueba. En tres rondas de replay ROS~2, el primer destino cambió de E3 a E2 y luego a E5 tras el diagnóstico de falla de cada máquina. La misión física simulada en Gazebo completó las tres rondas y 15 acoples, con el mismo cambio de primer destino.
 \end{abstract}
 \begin{IEEEkeywords}
 AGV, acople difuso, CWRU, mantenimiento predictivo, MLP, ROS~2.
@@ -169,7 +169,7 @@ Se ejecutó el replay con dos nodos que se comunican por los tópicos de ROS~2 H
 {\small Tabla V. Orden confirmado mediante replay ROS~2.}
 \end{center}
 \fig{reordenamiento_ros.png}{Fig. 6. Primer destino por ronda. En naranja, la prioridad 1 derivada del diagnóstico anterior.}
-Se verificaron quince diagnósticos vinculados a ventanas de prueba. El archivo JSON conserva clase y confianza por visita. El lanzamiento de Gazebo registra, además, tiempo de acople, distancia, ángulo, error lateral y reintentos. La prueba de replay emplea eventos de acople inyectados y deja la dinámica y el acople para la prueba del simulador.
+Se verificaron quince diagnósticos vinculados a ventanas de prueba. El archivo JSON conserva clase y confianza por visita. El replay empleó eventos de acople inyectados. Luego se ejecutó el lazo completo en Gazebo Classic 11.10.2, sin interfaz gráfica. Los nodos usaron las mismas ventanas y reglas de prioridad.
 \clearpage
 
 \section{Discusión}
@@ -179,9 +179,9 @@ La división temporal cumple la restricción de desunión de muestras. Ventanas 
 Las características espectrales añadidas reflejan el dominio de muestreo y los registros de laboratorio. Si cambia el muestreo, es necesario redefinir las bandas. La futura verificación en ESP32 debe registrar latencia de adquisición, extracción, normalización e inferencia. El tamaño reducido de la MLP es un indicador inicial de viabilidad y la FFT puede dominar el presupuesto de trabajo.
 
 \subsection{Validez del lazo de inspección}
-El replay verifica transporte, contrato de datos y reacción causal del orden de visita. El simulador añade cadencia de odometría, rayos LiDAR, contacto, ruido, reintentos y condiciones de parada. Comparar la tasa de acople con el umbral de 90\,\% requiere evidencia en los escenarios del enunciado, con cinco repeticiones en cada escenario. Los resultados numéricos históricos se conservan como antecedentes. La ejecución integral en Gazebo se debe verificar con los registros de la misión.
+El replay verifica transporte, contrato de datos y reacción causal del orden de visita. El simulador añade cadencia de odometría, rayos LiDAR, contacto, ruido, reintentos y condiciones de parada. Comparar la tasa de acople con el umbral de 90\,\% requiere evidencia en los escenarios del enunciado, con cinco repeticiones en cada escenario. Los resultados numéricos históricos se conservan como antecedentes. En Gazebo se completaron las 15 visitas en el mismo orden del replay. El máximo error final fue 6,55 mm en distancia y 4,76 grados en ángulo. El máximo error lateral observado fue 2,78 cm. Se registraron 5 reintentos y 17,94 s simulados en promedio en el intento exitoso. El criterio longitudinal y angular se confirmó en las 15 visitas. La corrida corresponde al escenario nominal de tres rondas.
 
-El seguimiento por pasillo funciona como diseño específico del tablero conocido. Una planta dinámica requeriría detección de obstáculos y un planificador de movimiento capaz de replantear trayectorias con las nuevas restricciones.
+Para el Waffle se ajustó el parámetro de rampa de rueda del complemento de Gazebo a cero después de observar un retraso entre consigna de giro y odometría. La simulación conservó el control diferencial y los límites de velocidad del supervisor. El seguimiento por pasillo es específico del tablero conocido. Una planta dinámica requeriría detección de obstáculos y un planificador de movimiento capaz de replantear trayectorias con las nuevas restricciones.
 \newpage
 \subsection{Trazabilidad de evidencia}
 \begin{center}
@@ -193,12 +193,13 @@ Keras--NumPy & 220 probabilidades contrastadas.\\
 NumPy--SciPy & 45 características contrastadas.\\
 MATLAB--Python & Script y tablas de entrada preparados.\\
 Replay ROS~2 & 15 diagnósticos y tres planes iniciales.\\
-Gazebo & Launch y registro integral preparados.\\
+Gazebo & 15 acoples y diagnósticos en tres rondas.\\
 \bottomrule
 \end{tabular}\\
 Tabla VI. Cobertura de las comprobaciones.
 \end{center}
 
+\fig{gazebo_trayectoria.png}{Fig. 7. Tramo registrado de la trayectoria del robot en Gazebo.}
 \subsection{Próxima extensión en ESP32}
 Los datos de un MPU6050 sobre prototipos con desbalance provendrán de un dominio mecánico distinto. Se necesitará un banco propio, particiones por sesión y análisis de la componente de giro 1×. En el microcontrolador, la reducción de precisión de los pesos requiere calibración y medición directa del impacto sobre exactitud y memoria. Se propone medir latencia extremo a extremo con FFT y adquisición incluidas.
 
@@ -209,7 +210,7 @@ El manifiesto con SHA-256 identifica el origen de los datos. El CSV conserva tra
 \section{Conclusiones}
 La MLP con estructura 9--32--16--4 obtuvo menor pérdida de validación que la de una capa. Con 916 parámetros, logró 55 aciertos de 55 ventanas de prueba del conjunto CWRU a 0 hp. No se observaron confusiones en las cuatro clases. Los resultados proceden de tramos temporales disjuntos de los mismos registros y deben verificarse con nuevos motores y cargas.
 
-El flujo ROS~2 procesó las quince visitas de replay. Tras confirmar pista interna en E2 y falla de bola en E5, el primer destino pasó de E3 a E2 y luego a E5. Esta prueba respalda la actualización de prioridades con la clase recibida por tópicos. El simulador y MATLAB disponen de lanzadores y registros definidos para completar la verificación integral.
+El flujo ROS~2 procesó las quince visitas de replay. Tras confirmar pista interna en E2 y falla de bola en E5, el primer destino pasó de E3 a E2 y luego a E5. Esta prueba respalda la actualización de prioridades con la clase recibida por tópicos. Gazebo confirmó la misma evolución del orden inicial y registró las quince visitas. Se preparó el script para ejecutar el contraste directo en MATLAB.
 
 El modelo exportado conserva escalas y orden de entrada. La comparación de las probabilidades con el modelo de entrenamiento muestra que se puede desplegar el clasificador fuera del entorno TensorFlow sin alterar las decisiones observadas. El siguiente paso del proyecto estudiará el muestreo propio, la medida 1× y la latencia integral en ESP32.
 \newpage

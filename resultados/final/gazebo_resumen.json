@@ -1,0 +1,14 @@
+{
+  "rondas": 3,
+  "visitas": 15,
+  "primeras": [
+    "E3",
+    "E2",
+    "E5"
+  ],
+  "max_ed_m": 0.006552572435289228,
+  "max_et_deg": 4.761865932759513,
+  "max_lateral_m": 0.027791315712275333,
+  "acople_promedio_s": 17.93840000000001,
+  "reintentos": 5
+}

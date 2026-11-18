@@ -55,3 +55,6 @@ datos/cwru/*.mat
 # Archivos temporales Python
 __pycache__/
 *.pyc
+
+# Enlaces locales a datos CWRU
+datos/cwru_entrenamiento/
